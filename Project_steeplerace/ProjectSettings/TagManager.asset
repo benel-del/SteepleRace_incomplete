@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - hurdle
+  - stone
+  - stick
+  - partal-A
+  - portal-B
+  - snow_set
+  - ice
+  - track
+  - grass
+  - board
   layers:
   - Default
   - TransparentFX

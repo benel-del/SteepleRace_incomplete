@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Etc\VoxelAnimals\Assets\Scripts\PlayerController.cs" />
+     <None Include="Assets\Etc\IceMaterial\Shader\Ice.shader" />
      <None Include="Assets\Etc\VoxelAnimals\Documentation\ReadMe.txt" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
