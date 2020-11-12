@@ -1,0 +1,59 @@
+[camera]
+- [ ] 3인칭
+- [ ] trace player
+
+[Player]
+- [ ] forward move : 키 누르는 동안 가속도 운동하다 일정 속도가 되면 등가속도 운동. 키를 떼면 바로 멈춘다.
+- [ ] left/right move : 캐릭터는 일정 거리 이상으로 옆으로 이동할 수 없다.
+- [ ] jump : Space 키 누르면 점프
+- [ ] rotation freeze
+
+[Obstacle]
+- [ ] hurdle : 일정 간격을 두고 생성한다.
+- [ ] stone : 돌멩이가 랜덤한 위치에서 생성되고 중력에 의해 떨어진다. 바닥에 닿기 바로 직전에 사라진다.
+- [ ] stone : 돌멩이의 그림자가 잘 보이도록 해서 어디로 떨어질지 예측할 수 있어야 한다.
+- [ ] board : 좁고 긴 판 한 개 생성한다. 마찰력과 player의 최대 이동 속도도 낮춘다.
+- [ ] stick : 벽에서 일정 속도로 나왔다 들어갔다를 반복한다.
+
+[Collider]
+- [ ] player&hurdle : 허들은 쓰러지고 Player는 n초간 움직이지 못한다.
+- [ ] player&stone : 돌멩이가 사라지고, Player는 n초간 움직이지 못한다.
+- [ ] player&stick : player가 튕겨져 나가고 n초간 움직이지 못한다. stick는 그대로 움직인다.
+- [ ] player&portal : player가 portal-A에 대응되는 portal-B의 위치로 이동한다.
+- [ ] player&ice : player가 ice 위에서 미끄러지고 n초간 움직이지 못한다.
+
+[Weather]
+- [ ] 일정 시간마다 랜덤으로 'sun', 'cloud', 'rain', 'snow'을 구현한다.
+//- [ ] light 추가하여 해를 표현한다.
+- [ ] sun : 해를 추가하고 지열로 인한 아지랑이를 구현한다.
+- [ ] sun : player의 속도가 현저하게 느려진다.
+- [ ] cloud : 해보다 낮은 위치에 천천히 이동하는 구름을 구현한다.
+- [ ] rain : 구름을 cloud 보다 많이 생성한다. 비가 내리고, 바닥에 닿으면 사라진다.
+- [ ] rain : player의 공기 저항을 올린다.
+- [x] snow : 구름을 rain만큼 생성한다. 눈이 내리고, 바닥에 닿으면 사라진다.
+- [ ] snow : 눈덩이와 빙판이 랜덤으로 생긴다. player가 뛰거나 옆으로 이동하여 피할 수 있을 정도의 사이즈로 구현한다
+- [ ] snow : player의 최대 이동 속도를 낮추고 x 좌표값이 랜덤으로 미세하게 변한다.
+
+[Portal]
+- [ ] track 1 -> track 2 : portal-A1, portal-B1
+- [ ] track 2 -> track 3 : portal-A2, portal-B2
+- [ ] track 3 -> track 4 : portal-A3, portal-B3
+- [ ] track 4 -> end point : portal-A4, portal-B4
+- [ ] track 3 -> track 3 : portal-C, portal-B2
+
+[Track]
+- [ ] track 3 : 양 끝은 ground, 그 사이에 좁고 긴 판이 있다. 판에서 떨어지면 track의 처음 위치에서 다시 시작한다.
+- [ ] grass : player가 grass 위를 달리면 track에서의 이동속도보다 낮다.
+
+[Effect] - 추후 변경 가능
+- [ ] player&hurdle : sound
+- [ ] player&stone : sound
+- [ ] player&stick : sound
+- [ ] player&portal : particle
+- [ ] player&grass : sound
+
+[Etc]
+- [ ] Timer : 남은 시간 화면 상단에 표시
+- [ ] Distance : 결승선까지 남은 거리 화면 상단에 표시. 남은 거리 = portal 이동 제외한 트랙 거리= d(player ~ portal-A) + d(portal-A ~ portal-B) + d(portal-B ~ end point)
+- [ ] start : 게임을 시작하면 처음 5초를 카운트 다운하는 문장을 출력한다. 그 전까지는 움직일 수 없다. :: "3, 2, 1, 0, 땅!"
+- [ ] end : portal-B4로 end point에 도착하면 성공 문장을 출력하고 그 이후로는 움직일 수 없다.

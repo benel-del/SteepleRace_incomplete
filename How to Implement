@@ -1,0 +1,828 @@
+[Hierarchy Object]
+- player : rigidbody, rotation[Hierarchy Object]
+- [ ] player : rigidbody, rotation-freeze, PlayerMove.cs, Collision.cs, StaticFrictionChange.cs
+- [ ] Main Camera : CameraMove.cs
+- [ ] Directional Light : LightPosition.cs
+- [ ] timer : 3D text. Timer.cs
+- [ ] distance : 3D text. Distance.cs
+- [ ] portal-A1 : prefab, rigidbody, Portal.cs(track 1 -> track 2), ObstacleCreate.cs
+- [ ] portal-A2 : prefab, rigidbody, Portal.cs(track 2 -> track 3), ObstacleCreateStop.cs
+- [ ] portal-A3 : prefab, rigidbody, Portal.cs(track 3 -> track 4)
+- [ ] portal-A4 : prefab, rigidbody, Portal.cs(track 4 -> end point)
+- [ ] portal-B1 : track 2, prefab, rigidbody
+- [ ] portal-B2 : track 3, prefab, rigidbody
+- [ ] portal-B3 : track 4, prefab, rigidbody
+- [ ] portal-B4 : end point, prefab, rigidbody
+- [ ] portal-C : rigidbody, Portal.cs(track 3 -> track 3)
+- [ ] hurdle(n) : rigidbody, prefab
+- [ ] board : 
+- [ ] stick(n) : rigidbody, prefab, ObstacleStick.cs
+- [ ] grass(6) : prefab
+- [ ] start point : 
+- [ ] track 1 : prefab, rigidbody
+- [ ] track 2 : prefab, rigidbody
+- [ ] track 3(2) : prefab, rigidbody
+- [ ] track 4 : prefab, rigidbody
+- [ ] end point : rigidbody
+- [ ] wall(6) : prefab
+- [ ] GameObject : GameObject. WeatherCreate.cs, Start.cs
+
+
+[Resources]
+- [ ] result1 : Prefab, 3D text, "Game success"
+- [ ] result2 : Prefab, 3D text, "Game Failed"
+- [ ] stone : Prefab, rigidbody, ObstacleStone.cs
+- [ ] board : Physic Material, Static Friction = 0.2
+- [ ] ice : Physic Material, Static Friction = 0
+- [ ] particle : prefab, Particle System
+- [ ] weather/Gsun : prefab, Light, heat_hazeCreate.cs
+- [ ] weather/Gcloud : prefab, GameObject, cloudCreate.cs
+- [ ] weather/Grain : prefab, GameObject, rainCreate.cs
+- [ ] weather/Gsnow : prefab, GameObject, snowCreate.cs
+- [ ] heat_haze : prefab, heat_haze.cs
+- [ ] cloud : prefab, cloud.cs
+- [ ] rain : prefab, rain.cs
+- [ ] snow : particle, prefab, snow.cs
+- [ ] snow_set : prefab, snowSub.cs
+- [ ] ice : prefab, snowSub.cs
+- [ ] start : 3D text
+
+
+[Scripts]
+- [ ] PlayerMove.cs : 게임 종료 전까지 Player 이동
+    :: Player
+    - if(GameObject.FindWithTag("result") && !gameObject.GetComponent<Collision>().notMove)
+        if(preT + 2 < player.GetComponent<Collision>().limit_time)
+            preT = player.GetComponent<Collision>().limit_time  
+            Forward : if(speed < maxSpeed)  speed++  
+        Jump : if(preY == transform.position.y)  jump   //500f
+        left : if(transform.position.x <= maxLeft)  left
+        right : if(transform.position.x <= maxRight)    right
+    - public : int maxSpeed
+    - private : int speed, float preY, int maxLeft/maxRight, int preT
+
+- [ ] CameraMove.cs : camera가 player 추적, camera가 player 위치에 절대적 값
+    :: Main Camera
+    - position = player.position + new Vector3(0, 100, -100)
+    - LookAt()
+    - public : Transform player
+    - private : 
+
+- [ ] LightPosition.cs : track의 y에 절대적 값
+    :: Directional Light
+    - position.x, z = 0
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - if(player.position.y < Pos[2])   // track 1
+        position.y = pos[1] + 1000
+    - else if(player.position.y < Pos[3]) // track 2
+        position.y = pos[2] + 1000
+    - else if(player.position.y < Pos[4]) // track3
+        position.y = pos[3] + 1000
+    - else if(player.position.y < Pos[5]) // track4
+        position.y = pos[4] + 1000
+    - else
+        position.y = pos[5] + 1000
+    - public : Transform player
+    - private : float pos[7]
+
+- [ ] Timer.cs : 남은 시간 출력, timer가 player 위치에 절대적 값, 게임 결과 출력
+    :: (3D text) timer
+    - if(!GameObject.FindWithTag("result"))
+        if(!(++count % 50))
+            GetComponent<Text>.text = --limit_time + "초"
+            if(!player.GetComponent<Collision>().notMove)
+                player.GetComponent<Collision>().notMove--
+        position = player.GetComponent<Transform>.position + a
+    - if(limit_time == 0)
+        if(GameObject.Find("distance").GetComponent<Distance.cs>.distance <= 0)   Resources.Load("result1")
+        else   Resources.Load("result2")
+    - public : GameObjacet player
+    - private : int limit_time, int count
+
+- [ ] Distance.cs : 남은 거리 출력, timer가 player 위치에 절대적 값
+    :: (3D text) distance
+    - portalA, portalB for position z
+    - if(player.position.y < trackPos[2])  // track 1
+        distance = (endPoint - portalB.z) + trackPos[1] * 3 + (portalA.z - player.position.z)
+    - else if(player.position.y < trackPos[3]) // track 2
+        distance = (endPoint - portalB.z) + trackPos[1] * 2 + (portalA.z - player.position.z)
+    - else if(player.position.y < trackPos[4]) // track3
+        distance = (endPoint - portalB.z) + trackPos[1] + (portalA.z - player.position.z)
+    - else if(player.position.y < trackPos[5]) // track4
+        distance = (endPoint - portalB.z) + (portalA.z - player.position.z)
+    - else
+        distance = endPoint - player.position.z
+    - if(!GameObject.FindWithTag("result"))
+        GetComponent<Text>.text = distance + "m"
+        position = player.position + a
+    - public : Transform player, Transform end, float trackPos[7](width, height, each Y)
+    - private : float distance, Vector3 portalA, Vector3 portalB
+
+- [ ] Portal.cs : player의 field 이동
+    :: Portal-A
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.tag == "player")
+            player.position = portal-B.position
+    - public : Transform player, Transform portal-B
+    - private :
+
+- [ ] ObstacleCreate.cs : 장애물 생성
+    :: portal-A1
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "player")
+            stone = Resources.Load("stone")
+            startCoroutine(createStone)
+    - IEnumerator createStone() // InvokeRepeating은 active여부와 관계없이 계속 반복
+        while(true)
+            int x = Random.Range(a, b)
+            int z = Random.Random(a, b)
+            instance = Instantiate(stone, new Vector3(x*2.0f, y, z*2.0f)), Quaternion.identity)
+            yeild return null
+    - public :
+    - private : GameObject instance, GameObject stone
+
+- [ ] ObstacleCreateStop.cs : 장애물 생성 중단 = 비활성화
+    :: portal-A2
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "player")
+            prePortal.SetActive(false)
+    - public : GameObject prePortal
+    - private : 
+
+- [ ] ObstacleStone.cs : stone 소멸, Collision sound
+    :: stone
+    - OnCollisionEnter(Collision other)
+        stone.Play()
+        Destroy(gameObject)
+    - public : AudioSource stone
+    - private : 
+
+- [ ] ObstacleStick.cs : stick의 움직임
+    :: stick
+    - WaitForSeconds(Random.Range(0,2))
+    - while(true)
+        GetComponent<Rigidbody>().AddForce(transform.left * 400)
+        WaitForSeconds(3)
+        GetComponent<Rigidbody>().AddForce(transform.right * 400)
+        WaitForSeconds(3)
+    - public : 
+    - private : 
+
+- [ ] Collision.cs : 충돌 후 player 상태 변화(speed, notMoveTime) + sound
+    :: player
+    - effect = Resources.Load("particle")
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "grass")
+            gameObject.GetComponent<PlayerMove>().maxSpeed = 8
+            grass.Play()
+        else if(other.GameObject.name == "board")
+            gameObject.GetComponent<PlayerMove>().maxSpeed = 10
+        eles if(other.GameObject.name == "snow_set")
+            gameObject.GetComponent<PlayerMove>().maxSpeed = 5
+            snow.Play()
+        else
+            gameObject.GetComponent<PlayerMove>().maxSpeed = initSpeed
+            if(other.GameObject.name == "hurdle")
+                notMove = notMoveTime
+                hurdle.Play()
+            if(other.GameObject.name == "stone")
+                notMove = notMoveTime
+            if(other.GameObject.name == "stick")
+                notMove = notMoveTime
+                stick.Play()
+            if(other.GameObject.name == "ice")
+                notMove = notMoveTime
+            if(other.GameObject.tag == "portal-A")
+                portal.Play()
+            if(other.GameObject.tag == "portal-B")
+                instance = Instantiate(effect, transform.position, Quaternion.identity)
+                Destroy(instance, 2f)
+    - public : int notMove, AudioSource hurdle, stick, grass, snow, portal
+    - private : int initSpeed, int notMoveTime, GameObject instance, GameObject effect
+
+- [ ] StaticFrictionChange.cs : player의 정지 마찰력 감소
+    :: player
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "board")
+            mt = Resources.Load("board", typeof(Material)) as Material
+            player.GetComponent<Renderer>.material = mt
+        else if(other.GameObject.name == "ice")
+            mt = Resources.Load("ice", typeof(Material)) as Material
+            player.GetComponent<Renderer>.material = mt
+        else
+            player.GetComponent<Renderer>.material = none;
+    - public : GameObject player
+    - private : Material mt
+
+- [ ] WeatherCreate.cs : player 주변 날씨 변화
+    :: GameObject
+    - instance = Resources.LoadAll("weather")   // Gsun, Gcloud, Grain, Gsnow
+    - pos = new Vector3(DLight.position.x, DLight.position.y - 100, DLight.position.z)
+    - while(!GetObject.Fine("timer").GetComponent<Timer>().limit_time)
+        int rand = Random.Range(0,4)
+        switch(rand)
+            case 0: // Gsun
+                instance1 = Instantiate(instance[0], , Quaternion.identity)
+                player.GetComponent<PlayerMove>().maxSpeed -= 10
+                sun.Play()
+                WaitForSeconds(15)
+                player.GetComponent<PlayerMove>().maxSpeed += 10
+            case 1: // Gcloud
+                instance1 = Instantiate(instance[1], pos, Quaternion.identity)
+                cloud.Play()
+                WaitForSeconds(15)
+            case 2: // Grain
+                instance1 = Instantiate(instance[2], poz, Quaternion.identity)
+                player.GetComponent<Renderer>().drag += 10
+                rain.Play()
+                WaitForSeconds(15)
+                player.GetComponent<Renderer>().drag -= 10
+            case 3: // Gsnow
+                instance1 = Instantiate(instance[3], pos, Quaternion.identity)
+                player.GetComponent<PlayerMove>().maxSpeed -= 5
+                player.GetComponent<Transform>().position.x += Random.Range(-5,5)
+                snow.Play()
+                WaitForSeconds(15)
+                player.GetComponent<PlayerMove>().maxSpeed += 5
+        Destroy(instance1)
+    - public : GameObject player, Transform DLight, AudioSource sun, cloud, rain, snow
+    - private : GameObject instance[4], instance1, Vector3 pos
+
+- [ ] heat_hazeCreate.cs : 아지랑이 생성
+    :: Gsun
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.1f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        for(i = 3; i < 7; i++)
+            if(pos[i-1] <= player.position.y < pos[i])
+                Instantiate(heat_haze, new Vector3(x*2.0f, pos[i-1], z*2.0f), Quaternion.identity)
+    - public : Transform player
+    - private : float pos[7]
+
+- [ ] heat_haze.cs : 아지랑이 움직임, 소멸
+    :: heat_haze
+    - transform.Translate(Vector3.up * 0.5f * Time.deltaTime)
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - if(!GetObject.Find("Gsun"))
+        Destroy(gameObject)
+    - else
+        for(i = 2; i < 7; i++)
+            if(transform.y >= pos[i] + 30)
+                Destroy(gameObject)
+    - public :
+    - private : float pos
+
+- [ ] cloudCreate.cs : 구름 생성
+    :: Gcloud
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.1f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        Instantiate(cloud, new Vector3(x*2.0f, DLight.position.y - 100, z*2.0f), Quaternion.identity)
+    - public : Transform DLight
+    - private : float pos
+
+- [ ] cloud.cs : 구름 움직임, 소멸
+    :: cloud
+    - transform.Translate(Vector3.left * 0.5f * Time.deltaTime)
+    - if(!GetObject.Find("Gcloud"))
+        Destroy(gameObject)
+    - public :
+    - private : 
+
+- [ ] rainCreate.cs : 구름, 비 생성
+    :: Grain
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.6f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        Instantiate(cloud, new Vector3(x*1.0f, DLight.position.y - 100, z*1.0f), Quaternion.identity)
+        Instantiate(rain, new Vector3(0, DLight.position.y - 100, 0), Quaternion.identity)
+    - public : Transform DLight
+    - private : float pos
+
+- [ ] rain.cs : 비 움직임, 소멸
+    :: rain
+    - if(!GetObject.Find("Grain"))
+        Destroy(gameObject)
+    - public : Transform player
+    - private : float pos
+
+- [ ] snowCreate.cs : 구름, 눈, snow_set, ice 생성
+    :: Gsnow
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.6f)
+    - InvokeRepeating("CreateSub", 5f, 0.6f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        Instantiate(cloud, new Vector3(x*1.0f, DLight.position.y - 100, z*1.0f), Quaternion.identity)
+        Instantiate(snow, new Vector3(0, DLight.position.y - 100, 0), Quaternion.identity)
+    - CreateSub()
+        for(i = 3; i < 7; i++)
+            if(pos[i-1] <= player.position.y < pos[i])
+                do
+                    x = Random.Range(a, b)
+                while(pos[0]/2 <= x || x <= -pos[0]/2)
+                do
+                    z = Random.Random(a, b)
+                while(pos[1]/2 <= z || z <= -pos[1]/2)
+                Instantiate(ice, new Vector3(x*2.0f, pos[i-1], z*2.0f), Quaternion.identity)
+                do
+                    x = Random.Range(a, b)
+                while(pos[0]/2 <= x || x <= -pos[0]/2)
+                do
+                    z = Random.Random(a, b)
+                while(pos[1]/2 <= z || z <= -pos[1]/2)
+                Instantiate(snow_set, new Vector3(x*2.0f, pos[i-1], z*2.0f), Quaternion.identity)
+    - public : Transform DLight, Transform player
+    - private : float pos
+    
+- [ ] snow.cs : 눈 소멸
+    :: snow
+    - if(!GetObject.Find("Gsnow"))
+        Destroy(gameObject)
+    - public : 
+    - private : 
+
+- [ ] snowSub.cs : snow_set, ice 소멸
+    :: snow_set, ice
+    - if(!GetObject.Find("Gsnow"))
+        Destroy(gameObject)
+    - public : 
+    - private : 
+
+- [ ] Start.cs : 게임 시작 카운트다운
+    :: GameObject
+    - player.GetComponent<Collision>().notMove = 5;
+    - instance = Resources.Load("start")
+    - if(!(++count % 50) && player.GetComponent<Collision>().notMove)
+        if(player.GetComponent<Collision>().notMove > 1)
+            start.GetComponent<Text>.text = (player.GetComponent<Collision>().notMove-- - 2)
+        else
+            start.GetComponent<Text>.text = "땅!"
+    - else if(!player.GetComponent<Collision>().notMove)
+        Destroy(instance)
+    - public : AudioSource start, GameObject start, GameObject player
+    - private : int count, GameObject instance
+
++ track의 x, z 좌표는 동일
++ DLight : track 정 중앙(0, 0)에 위치-freeze, PlayerMove.cs, Collision.cs, StaticFrictionChange.cs
+- Main Camera : CameraMove.cs
+- Directional Light : LightPosition.cs
+- timer : 3D text. Timer.cs
+- distance : 3D text. Distance.cs
+- portal-A1 : prefab, rigidbody, Portal.cs(track 1 -> track 2), ObstacleCreate.cs
+- portal-A2 : prefab, rigidbody, Portal.cs(track 2 -> track 3), ObstacleCreateStop.cs
+- portal-A3 : prefab, rigidbody, Portal.cs(track 3 -> track 4)
+- portal-A4 : prefab, rigidbody, Portal.cs(track 4 -> end point)
+- portal-B1 : track 2, prefab, rigidbody
+- portal-B2 : track 3, prefab, rigidbody
+- portal-B3 : track 4, prefab, rigidbody
+- portal-B4 : end point, prefab, rigidbody
+- portal-C : rigidbody, Portal.cs(track 3 -> track 3)
+- hurdle(n) : rigidbody, prefab
+- board : 
+- stick(n) : rigidbody, prefab, ObstacleStick.cs
+- grass(6) : prefab
+- start point : 
+- track 1 : prefab, rigidbody
+- track 2 : prefab, rigidbody
+- track 3(2) : prefab, rigidbody
+- track 4 : prefab, rigidbody
+- end point : rigidbody
+- wall(6) : prefab
+- GameObject : GameObject. WeatherCreate.cs, Start.cs
+
+
+[Resources]
+- result1 : Prefab, 3D text, "Game success"
+- result2 : Prefab, 3D text, "Game Failed"
+- stone : Prefab, rigidbody, ObstacleStone.cs
+- board : Physic Material, Static Friction = 0.2
+- ice : Physic Material, Static Friction = 0
+- particle : prefab, Particle System
+- weather/Gsun : prefab, Light, heat_hazeCreate.cs
+- weather/Gcloud : prefab, GameObject, cloudCreate.cs
+- weather/Grain : prefab, GameObject, rainCreate.cs
+- weather/Gsnow : prefab, GameObject, snowCreate.cs
+- heat_haze : prefab, heat_haze.cs
+- cloud : prefab, cloud.cs
+- rain : prefab, rain.cs
+- snow : prefab, snow.cs
+- snow_set : prefab, snowSub.cs
+- ice : prefab, snowSub.cs
+- start : 3D text
+
+
+[Scripts]
+- PlayerMove.cs : 게임 종료 전까지 Player 이동
+    :: Player
+    - if(GameObject.FindWithTag("result") && !gameObject.GetComponent<Collision>().notMove)
+        if(preT + 2 < player.GetComponent<Collision>().limit_time)
+            preT = player.GetComponent<Collision>().limit_time  
+            Forward : if(speed < maxSpeed)  speed++  
+        Jump : if(preY == transform.position.y)  jump   //500f
+        left : if(transform.position.x <= maxLeft)  left
+        right : if(transform.position.x <= maxRight)    right
+
+    - public : int maxSpeed
+    - private : int speed, float preY, int maxLeft/maxRight, int preT
+
+- CameraMove.cs : camera가 player 추적, camera가 player 위치에 절대적 값
+    :: Main Camera
+    - position = player.position + new Vector3(0, 100, -100)
+    - LookAt()
+
+    - public : Transform player
+    - private : 
+
+- LightPosition.cs : track의 y에 절대적 값
+    :: Directional Light
+    - position.x, z = 0
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - if(player.position.y < Pos[2])   // track 1
+        position.y = pos[1] + 1000
+    - else if(player.position.y < Pos[3]) // track 2
+        position.y = pos[2] + 1000
+    - else if(player.position.y < Pos[4]) // track3
+        position.y = pos[3] + 1000
+    - else if(player.position.y < Pos[5]) // track4
+        position.y = pos[4] + 1000
+    - else
+        position.y = pos[5] + 1000
+
+    - public : Transform player
+    - private : float pos[7]
+
+- Timer.cs : 남은 시간 출력, timer가 player 위치에 절대적 값, 게임 결과 출력
+    :: (3D text) timer
+    - if(!GameObject.FindWithTag("result"))
+        if(!(++count % 50))
+            GetComponent<Text>.text = --limit_time + "초"
+            if(!player.GetComponent<Collision>().notMove)
+                player.GetComponent<Collision>().notMove--
+        position = player.GetComponent<Transform>.position + a
+    - if(limit_time == 0)
+        if(GameObject.Find("distance").GetComponent<Distance.cs>.distance <= 0)   Resources.Load("result1")
+        else   Resources.Load("result2")
+
+    - public : GameObjacet player
+    - private : int limit_time, int count
+
+- Distance.cs : 남은 거리 출력, timer가 player 위치에 절대적 값
+    :: (3D text) distance
+    - portalA, portalB for position z
+    - if(player.position.y < trackPos[2])  // track 1
+        distance = (endPoint - portalB.z) + trackPos[1] * 3 + (portalA.z - player.position.z)
+    - else if(player.position.y < trackPos[3]) // track 2
+        distance = (endPoint - portalB.z) + trackPos[1] * 2 + (portalA.z - player.position.z)
+    - else if(player.position.y < trackPos[4]) // track3
+        distance = (endPoint - portalB.z) + trackPos[1] + (portalA.z - player.position.z)
+    - else if(player.position.y < trackPos[5]) // track4
+        distance = (endPoint - portalB.z) + (portalA.z - player.position.z)
+    - else
+        distance = endPoint - player.position.z
+    - if(!GameObject.FindWithTag("result"))
+        GetComponent<Text>.text = distance + "m"
+        position = player.position + a
+
+    - public : Transform player, Transform end, float trackPos[7](width, height, each Y)
+    - private : float distance, Vector3 portalA, Vector3 portalB
+
+- Portal.cs : player의 field 이동
+    :: Portal-A
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.tag == "player")
+            player.position = portal-B.position
+            
+    - public : Transform player, Transform portal-B
+    - private :
+
+- ObstacleCreate.cs : 장애물 생성
+    :: portal-A1
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "player")
+            stone = Resources.Load("stone")
+            startCoroutine(createStone)
+    - IEnumerator createStone() // InvokeRepeating은 active여부와 관계없이 계속 반복
+        while(true)
+            int x = Random.Range(a, b)
+            int z = Random.Random(a, b)
+            instance = Instantiate(stone, new Vector3(x*2.0f, y, z*2.0f)), Quaternion.identity)
+            yeild return null
+
+    - public :
+    - private : GameObject instance, GameObject stone
+
+- ObstacleCreateStop.cs : 장애물 생성 중단 = 비활성화
+    :: portal-A2
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "player")
+            prePortal.SetActive(false)
+
+    - public : GameObject prePortal
+    - private : 
+
+- ObstacleStone.cs : stone 소멸, Collision sound
+    :: stone
+    - OnCollisionEnter(Collision other)
+        stone.Play()
+        Destroy(gameObject)
+
+    - public : AudioSource stone
+    - private : 
+
+- ObstacleStick.cs : stick의 움직임
+    :: stick
+    - WaitForSeconds(Random.Range(0,2))
+    - while(true)
+        GetComponent<Rigidbody>().AddForce(transform.left * 400)
+        WaitForSeconds(3)
+        GetComponent<Rigidbody>().AddForce(transform.right * 400)
+        WaitForSeconds(3)
+
+    - public : 
+    - private : 
+
+- Collision.cs : 충돌 후 player 상태 변화(speed, notMoveTime) + sound
+    :: player
+    - effect = Resources.Load("particle")
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "grass")
+            gameObject.GetComponent<PlayerMove>().maxSpeed = 8
+            grass.Play()
+        else if(other.GameObject.name == "board")
+            gameObject.GetComponent<PlayerMove>().maxSpeed = 10
+        eles if(other.GameObject.name == "snow_set")
+            gameObject.GetComponent<PlayerMove>().maxSpeed = 5
+            snow.Play()
+        else
+            gameObject.GetComponent<PlayerMove>().maxSpeed = initSpeed
+            if(other.GameObject.name == "hurdle")
+                notMove = notMoveTime
+                hurdle.Play()
+            if(other.GameObject.name == "stone")
+                notMove = notMoveTime
+            if(other.GameObject.name == "stick")
+                notMove = notMoveTime
+                stick.Play()
+            if(other.GameObject.name == "ice")
+                notMove = notMoveTime
+            if(other.GameObject.tag == "portal-A")
+                portal.Play()
+            if(other.GameObject.tag == "portal-B")
+                instance = Instantiate(effect, transform.position, Quaternion.identity)
+                Destroy(instance, 2f)
+            
+    - public : int notMove, AudioSource hurdle, stick, grass, snow, portal
+    - private : int initSpeed, int notMoveTime, GameObject instance, GameObject effect
+
+- StaticFrictionChange.cs : player의 정지 마찰력 감소
+    :: player
+    - OnCollisionEnter(Collision other)
+        if(other.GameObject.name == "board")
+            mt = Resources.Load("board", typeof(Material)) as Material
+            player.GetComponent<Renderer>.material = mt
+        else if(other.GameObject.name == "ice")
+            mt = Resources.Load("ice", typeof(Material)) as Material
+            player.GetComponent<Renderer>.material = mt
+        else
+            player.GetComponent<Renderer>.material = none;
+
+    - public : GameObject player
+    - private : Material mt
+
+- WeatherCreate.cs : player 주변 날씨 변화
+    :: GameObject
+    - instance = Resources.LoadAll("weather")   // Gsun, Gcloud, Grain, Gsnow
+    - pos = new Vector3(DLight.position.x, DLight.position.y - 100, DLight.position.z)
+    - while(!GetObject.Fine("timer").GetComponent<Timer>().limit_time)
+        int rand = Random.Range(0,4)
+        switch(rand)
+            case 0: // Gsun
+                instance1 = Instantiate(instance[0], , Quaternion.identity)
+                player.GetComponent<PlayerMove>().maxSpeed -= 10
+                sun.Play()
+                WaitForSeconds(15)
+                player.GetComponent<PlayerMove>().maxSpeed += 10
+            case 1: // Gcloud
+                instance1 = Instantiate(instance[1], pos, Quaternion.identity)
+                cloud.Play()
+                WaitForSeconds(15)
+            case 2: // Grain
+                instance1 = Instantiate(instance[2], poz, Quaternion.identity)
+                player.GetComponent<Renderer>().drag += 10
+                rain.Play()
+                WaitForSeconds(15)
+                player.GetComponent<Renderer>().drag -= 10
+            case 3: // Gsnow
+                instance1 = Instantiate(instance[3], pos, Quaternion.identity)
+                player.GetComponent<PlayerMove>().maxSpeed -= 5
+                player.GetComponent<Transform>().position.x += Random.Range(-5,5)
+                snow.Play()
+                WaitForSeconds(15)
+                player.GetComponent<PlayerMove>().maxSpeed += 5
+        Destroy(instance1)
+
+    - public : GameObject player, Transform DLight, AudioSource sun, cloud, rain, snow
+    - private : GameObject instance[4], instance1, Vector3 pos
+
+- heat_hazeCreate.cs : 아지랑이 생성
+    :: Gsun
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.1f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        for(i = 3; i < 7; i++)
+            if(pos[i-1] <= player.position.y < pos[i])
+                Instantiate(heat_haze, new Vector3(x*2.0f, pos[i-1], z*2.0f), Quaternion.identity)
+
+    - public : Transform player
+    - private : float pos[7]
+
+- heat_haze.cs : 아지랑이 움직임, 소멸
+    :: heat_haze
+    - transform.Translate(Vector3.up * 0.5f * Time.deltaTime)
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - if(!GetObject.Find("Gsun"))
+        Destroy(gameObject)
+    - else
+        for(i = 2; i < 7; i++)
+            if(transform.y >= pos[i] + 30)
+                Destroy(gameObject)
+
+    - public :
+    - private : float pos
+
+- cloudCreate.cs : 구름 생성
+    :: Gcloud
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.1f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        Instantiate(cloud, new Vector3(x*2.0f, DLight.position.y - 100, z*2.0f), Quaternion.identity)
+
+    - public : Transform DLight
+    - private : float pos
+
+- cloud.cs : 구름 움직임, 소멸
+    :: cloud
+    - transform.Translate(Vector3.left * 0.5f * Time.deltaTime)
+    - if(!GetObject.Find("Gcloud"))
+        Destroy(gameObject)
+
+    - public :
+    - private : 
+
+- rainCreate.cs : 구름, 비 생성
+    :: Grain
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.6f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        Instantiate(cloud, new Vector3(x*1.0f, DLight.position.y - 100, z*1.0f), Quaternion.identity)
+        Instantiate(rain, new Vector3(x*1.0f, DLight.position.y - 150, z*1.0f), Quaternion.identity)
+    
+    - public : Transform DLight
+    - private : float pos
+
+- rain.cs : 비 움직임, 소멸
+    :: rain
+    - transform.Translate(Vector3.down * 2.0f * Time.deltaTime)
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - if(!GetObject.Find("Grain"))
+        Destroy(gameObject)
+    - else
+        for(i = 2; i < 7; i++)
+            if(transform.y <= pos[i] + 5)
+                Destroy(gameObject)
+
+    - public : Transform player
+    - private : float pos
+
+- snowCreate.cs : 구름, 눈, snow_set, ice 생성
+    :: Gsnow
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - InvokeRepeating("Create", 0.1f, 0.6f)
+    - InvokeRepeating("CreateSub", 5f, 0.6f)
+    - float x, z
+    - Create()
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        Instantiate(cloud, new Vector3(x*1.0f, DLight.position.y - 100, z*1.0f), Quaternion.identity)
+        do
+            x = Random.Range(a, b)
+        while(pos[0]/2 <= x || x <= -pos[0]/2)
+        do
+            z = Random.Random(a, b)
+        while(pos[1]/2 <= z || z <= -pos[1]/2)
+        Instantiate(snow, new Vector3(x*1.0f, DLight.position.y - 100, z*1.0f), Quaternion.identity)
+    - CreateSub()
+        for(i = 3; i < 7; i++)
+            if(pos[i-1] <= player.position.y < pos[i])
+                do
+                    x = Random.Range(a, b)
+                while(pos[0]/2 <= x || x <= -pos[0]/2)
+                do
+                    z = Random.Random(a, b)
+                while(pos[1]/2 <= z || z <= -pos[1]/2)
+                Instantiate(ice, new Vector3(x*2.0f, pos[i-1], z*2.0f), Quaternion.identity)
+                do
+                    x = Random.Range(a, b)
+                while(pos[0]/2 <= x || x <= -pos[0]/2)
+                do
+                    z = Random.Random(a, b)
+                while(pos[1]/2 <= z || z <= -pos[1]/2)
+                Instantiate(snow_set, new Vector3(x*2.0f, pos[i-1], z*2.0f), Quaternion.identity)
+        
+    - public : Transform DLight, Transform player
+    - private : float pos
+    
+- snow.cs : 눈 움직임, 소멸
+    :: snow
+    - transform.Translate(Vector3.down * 1.0f * Time.deltaTime)
+    - pos = GetObject.Find("distance").GetComponent<Distance>().trackPos
+    - if(!GetObject.Find("Gsnow"))
+        Destroy(gameObject)
+    - else
+        for(i = 2; i < 7; i++)
+            if(transform.y <= pos[i] + 5)
+                Destroy(gameObject)
+
+    - public : Transform player
+    - private : float pos
+
+- snowSub.cs : snow_set, ice 소멸
+    :: snow_set, ice
+    - if(!GetObject.Find("Gsnow"))
+        Destroy(gameObject)
+    
+    - public : 
+    - private : 
+
+
+- Start.cs : 게임 시작 카운트다운
+    :: GameObject
+    - player.GetComponent<Collision>().notMove = 5;
+    - instance = Resources.Load("start")
+    - if(!(++count % 50) && player.GetComponent<Collision>().notMove)
+        if(player.GetComponent<Collision>().notMove > 1)
+            start.GetComponent<Text>.text = (player.GetComponent<Collision>().notMove-- - 2)
+        else
+            start.GetComponent<Text>.text = "땅!"
+    - else if(!player.GetComponent<Collision>().notMove)
+        Destroy(instance)
+
+    - public : AudioSource start, GameObject start, GameObject player
+    - private : int count, GameObject instance
+
+
++ track의 x, z 좌표는 동일
++ DLight : track 정 중앙(0, 0)에 위치

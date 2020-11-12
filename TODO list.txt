@@ -1,0 +1,129 @@
+[Description]
+- [ ] the role of GameObject
+- [ ] the functional requirement
+- [ ] how to implement of each requirement
+
+[GameObject]
+- [ ] player(1) : rigidbody
+- [ ] hurdle(n) : rigidbody, prefab
+- [ ] stone(n) : rigidbody, prefab, Dynamic creation
+- [ ] board(1)
+//- [ ] tire(n) : rigidbody, prefab
+- [ ] stick(n) : rigidbody, prefab
+- [ ] portal-A(4) : prefab
+- [ ] portal-B(4) : rigidbody, prefab
+- [ ] portal-C(1) : gound-3 bottom
+- [ ] rain(n) : is_traking, prefab, Dynamic random creation
+- [x] snow(n) : particle, Dynamic creation
+- [ ] snow_set(n) : rigidbody, Dynamic random creation
+- [ ] cloud(n) : prefab, Dynamic creation
+- [ ] ice(n) : prefab, Dynamic creation
+- [ ] heat_haze(n) : is_traking, prefab, Dynamic random creation
+- [ ] Gsun : prefab, Dynamic creation
+- [ ] Gcloud : prefab, Dynamic creation
+- [ ] Grain : prefab, Dynamic creation
+- [ ] Gsnow : prefab, Dynamic creation
+- [ ] track(5) : track-3 * 2, prefab
+- [ ] grass(6) : track-3(x), prefab
+- [ ] start point(1)
+- [ ] end point(1)
+- [ ] particle : prefab, Dynamic creation
+- [ ] wall() : 
+- [ ] GameObject (for scripts)
+- [ ] timer : is_traking
+- [ ] distance : is_traking
+- [ ] result(2) : is_traking, prefab, Dynamic creation
+- [ ] start : is_traking, prefab, Dynamic creation
+
+[Field]
+- [ ] start point : 
+- [ ] track 1 : hurdle
+- [ ] track 2 : stone
+- [ ] track 3 : narrow board
+- [ ] track 4 : stick
+- [ ] grass : drag up
+- [ ] end point : 
+
+[Tag]
+- [ ] player
+- [ ] portal-A : player와 충돌시, player position을 portal-B로 이동
+- [ ] portal-B
+- [ ] hurdle
+- [ ] stone
+- [ ] board
+- [ ] stick : player와 충돌시, player가 튕겨져 나감
+- [ ] ice : palyer와 충돌시, player의 position 변화. 마찰력 0
+- [ ] snow_set
+- [ ] grass
+- [ ] track
+
+
+[Prefab]
+- [ ] hurdle
+- [ ] stone
+//- [ ] tire
+- [ ] stick
+- [ ] portal-A
+- [ ] portal_B
+- [ ] rain
+- [ ] snow
+- [ ] snow_set
+- [ ] cloud
+- [ ] ice
+- [ ] heat_haze
+- [ ] ground
+- [ ] grass
+- [ ] particle
+- [ ] result1,2
+
+[Physic Material]
+- [ ] board : static friction = 0.2
+- [ ] ice : static friction = 0
+
+[Code]
+- [ ] player movement: KeyDown >> player position(left/right/up)
+- [ ] camera movement: trace player
+- [ ] obstacle creation: 
+- [ ] obstacle movement: 
+- [ ] field: player's drag change
+- [ ] field change: player&portal-A collision >> player position=portal-B position
+- [ ] weather creation: 
+- [ ] weather effect: player's speed change
+- [ ] timer: countDown
+- [ ] distance: player ~ end point
+- [ ] sound setting: 
+
+[Asset]
+- [ ] player model
+- [ ] hurdle model : 직접 구현
+- [ ] stone model
+- [ ] board model
+- [ ] stick model
+- [ ] sun model
+- [ ] cloud model
+- [ ] rain model
+- [ ] snow model : particle
+- [ ] heat_haze model : 아지랑이
+- [ ] snow_set model : 눈덩이
+- [ ] ice model : 빙판
+- [ ] portal model? image?
+- [ ] track image
+- [ ] grass image
+- [ ] player&hurdle collision sound
+- [ ] player&stone collision sound
+- [ ] player&stick collision sound
+- [ ] player&portal collision sound
+- [ ] player&grass collision sound
+- [ ] background sound
+- [ ] timer < 10 alert sound
+- [ ] start sound
+- [ ] success sound
+- [ ] failed sound
+- [ ] sun sound : player가 지친 소리
+- [ ] cloud sound : wind
+- [ ] rain sound
+- [ ] snow sound
+
+++
+- [ ] snow tree model
+- [ ] snow man
