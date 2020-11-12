@@ -1,5 +1,4 @@
 [Hierarchy Object]
-- player : rigidbody, rotation[Hierarchy Object]
 - [ ] player : rigidbody, rotation-freeze, PlayerMove.cs, Collision.cs, StaticFrictionChange.cs
 - [ ] Main Camera : CameraMove.cs
 - [ ] Directional Light : LightPosition.cs
@@ -170,7 +169,7 @@
 
 - [ ] Collision.cs : 충돌 후 player 상태 변화(speed, notMoveTime) + sound
     :: player
-    - effect = Resources.Load("particle")
+    - effect = Resources.Load("particleEffect")
     - OnCollisionEnter(Collision other)
         if(other.GameObject.name == "grass")
             gameObject.GetComponent<PlayerMove>().maxSpeed = 8

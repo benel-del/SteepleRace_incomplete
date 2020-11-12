@@ -1,10 +1,10 @@
 [Description]
-- [ ] the role of GameObject
-- [ ] the functional requirement
-- [ ] how to implement of each requirement
+- [x] the role of GameObject
+- [x] the functional requirement
+- [x] how to implement of each requirement
 
 [GameObject]
-- [ ] player(1) : rigidbody
+- [z] player(1) : rigidbody
 - [ ] hurdle(n) : rigidbody, prefab
 - [ ] stone(n) : rigidbody, prefab, Dynamic creation
 - [ ] board(1)
@@ -40,40 +40,40 @@
 - [ ] start point : 
 - [ ] track 1 : hurdle
 - [ ] track 2 : stone
-- [ ] track 3 : narrow board
+- [x] track 3 : narrow board
 - [ ] track 4 : stick
 - [ ] grass : drag up
 - [ ] end point : 
 
 [Tag]
-- [ ] player
-- [ ] portal-A : player와 충돌시, player position을 portal-B로 이동
-- [ ] portal-B
-- [ ] hurdle
-- [ ] stone
-- [ ] board
-- [ ] stick : player와 충돌시, player가 튕겨져 나감
-- [ ] ice : palyer와 충돌시, player의 position 변화. 마찰력 0
-- [ ] snow_set
-- [ ] grass
-- [ ] track
+- [x] player
+- [x] portal-A : player와 충돌시, player position을 portal-B로 이동
+- [x] portal-B
+- [x] hurdle
+- [x] stone
+- [x] board
+- [x] stick : player와 충돌시, player가 튕겨져 나감
+- [x] ice : palyer와 충돌시, player의 position 변화. 마찰력 0
+- [x] snow_set
+- [x] grass
+- [x] track
 
 
 [Prefab]
 - [ ] hurdle
-- [ ] stone
+- [x] stone
 //- [ ] tire
 - [ ] stick
 - [ ] portal-A
 - [ ] portal_B
-- [ ] rain
-- [ ] snow
+- [x] rain
+- [x] snow
 - [ ] snow_set
-- [ ] cloud
-- [ ] darkCloud
+- [x] cloud
+- [x] darkCloud
 - [ ] ice
-- [ ] heat_haze
-- [ ] ground
+- [x] heat_haze
+- [ ] track
 - [ ] grass
 - [ ] particle
 - [ ] result1,2
@@ -99,17 +99,20 @@
 - [x] player model
 - [ ] hurdle model : 직접 구현
 - [x] stone model
-- [ ] board model
+- [x] board model
 - [ ] stick model
-- [ ] sun model : 직접 구현
+- [x] Gsun : GameObject
+- [x] Gcloud : GameObject
+- [x] Grain : GameObject
+- [x] Gsnow : GameObject
 - [x] cloud model : particle
 - [x] darkCloud mode : particle
 - [x] rain model : particle
 - [x] snow model : particle
 - [x] heat_haze model : 아지랑이
-- [ ] snow_set model : 눈덩이
-- [ ] ice model : 빙판
-- [ ] portal model? image?
+- [x] snow_set model : 눈덩이
+- [x] ice model : 빙판
+- [x] portalEffect
 - [ ] track image : 직접 구현
 - [ ] grass image
 - [ ] player&hurdle collision sound
