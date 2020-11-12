@@ -13,12 +13,13 @@
 - [ ] portal-A(4) : prefab
 - [ ] portal-B(4) : rigidbody, prefab
 - [ ] portal-C(1) : gound-3 bottom
-- [ ] rain(n) : is_traking, prefab, Dynamic random creation
-- [x] snow(n) : particle, Dynamic creation
+- [ ] rain(n) : prefab, Dynamic creation
+- [ ] snow(n) : particle, Dynamic creation
 - [ ] snow_set(n) : rigidbody, Dynamic random creation
-- [ ] cloud(n) : prefab, Dynamic creation
-- [ ] ice(n) : prefab, Dynamic creation
-- [ ] heat_haze(n) : is_traking, prefab, Dynamic random creation
+- [ ] cloud(n) : prefab, Dynamic random creation
+- [ ] darkCloud(n) : prefab, Dynamic random creation
+- [ ] ice(n) : particle, Dynamic creation
+- [ ] heat_haze(n) : particle, Dynamic creation
 - [ ] Gsun : prefab, Dynamic creation
 - [ ] Gcloud : prefab, Dynamic creation
 - [ ] Grain : prefab, Dynamic creation
@@ -27,7 +28,7 @@
 - [ ] grass(6) : track-3(x), prefab
 - [ ] start point(1)
 - [ ] end point(1)
-- [ ] particle : prefab, Dynamic creation
+- [ ] portalEffect : prefab, Dynamic creation
 - [ ] wall() : 
 - [ ] GameObject (for scripts)
 - [ ] timer : is_traking
@@ -69,6 +70,7 @@
 - [ ] snow
 - [ ] snow_set
 - [ ] cloud
+- [ ] darkCloud
 - [ ] ice
 - [ ] heat_haze
 - [ ] ground
@@ -94,20 +96,21 @@
 - [ ] sound setting: 
 
 [Asset]
-- [ ] player model
+- [x] player model
 - [ ] hurdle model : 직접 구현
-- [ ] stone model
+- [x] stone model
 - [ ] board model
 - [ ] stick model
-- [ ] sun model
-- [ ] cloud model
-- [ ] rain model
-- [ ] snow model : particle
-- [ ] heat_haze model : 아지랑이
+- [ ] sun model : 직접 구현
+- [x] cloud model : particle
+- [x] darkCloud mode : particle
+- [x] rain model : particle
+- [x] snow model : particle
+- [x] heat_haze model : 아지랑이
 - [ ] snow_set model : 눈덩이
 - [ ] ice model : 빙판
 - [ ] portal model? image?
-- [ ] track image
+- [ ] track image : 직접 구현
 - [ ] grass image
 - [ ] player&hurdle collision sound
 - [ ] player&stone collision sound
