@@ -6,77 +6,63 @@
 [GameObject]
 - [z] player(1) : rigidbody
 - [ ] hurdle(n) : rigidbody, prefab
-- [ ] stone(n) : rigidbody, prefab, Dynamic creation
-- [ ] board(1)
-//- [ ] tire(n) : rigidbody, prefab
-- [ ] stick(n) : rigidbody, prefab
-- [ ] portal-A(4) : prefab
-- [ ] portal-B(4) : rigidbody, prefab
+- [ ] stone(n) : rigidbody, prefab, Dynamic random creation
+- [x] board(1)
+- [ ] stick(n) : prefab
+- [ ] portal-A(1) : prefab
+- [ ] portal-B(1) : prefab
 - [ ] portal-C(1) : gound-3 bottom
-- [ ] rain(n) : prefab, Dynamic creation
-- [ ] snow(n) : particle, Dynamic creation
-- [ ] snow_set(n) : rigidbody, Dynamic random creation
-- [ ] cloud(n) : prefab, Dynamic random creation
-- [ ] darkCloud(n) : prefab, Dynamic random creation
-- [ ] ice(n) : particle, Dynamic creation
-- [ ] heat_haze(n) : particle, Dynamic creation
-- [ ] Gsun : prefab, Dynamic creation
-- [ ] Gcloud : prefab, Dynamic creation
-- [ ] Grain : prefab, Dynamic creation
-- [ ] Gsnow : prefab, Dynamic creation
-- [ ] track(5) : track-3 * 2, prefab
-- [ ] grass(6) : track-3(x), prefab
-- [ ] start point(1)
-- [ ] end point(1)
+- [ ] rain(n) : particle
+- [ ] snow(n) : particle
+- [ ] snow_set(n) : prefab, Dynamic random creation
+- [ ] cloud(n) : prefab, Dynamic random creation    // particle
+- [ ] darkCloud(n) : prefab, Dynamic random creation    // particle
+- [ ] ice(n) : prefab, Dynamic creation
+- [ ] heat_haze(n) : particle,
+- [ ] Gsun : Dynamic creation
+- [ ] Gcloud : Dynamic creation
+- [ ] Grain : Dynamic creation
+- [ ] Gsnow : Dynamic creation
+- [x] track(3) : prefab
 - [ ] portalEffect : prefab, Dynamic creation
-- [ ] wall() : 
 - [ ] GameObject (for scripts)
-- [ ] timer : is_traking
+- [ ] time : is_traking
 - [ ] distance : is_traking
 - [ ] result(2) : is_traking, prefab, Dynamic creation
-- [ ] start : is_traking, prefab, Dynamic creation
+- [ ] start : is_traking, Dynamic creation
+- [ ] goalLine
 
 [Field]
-- [ ] start point : 
+- [ ] partal-A = start point
 - [ ] track 1 : hurdle
 - [ ] track 2 : stone
 - [x] track 3 : narrow board
 - [ ] track 4 : stick
-- [ ] grass : drag up
-- [ ] end point : 
+- [ ] portal-B = end point
 
 [Tag]
 - [x] player
-- [x] portal-A : player와 충돌시, player position을 portal-B로 이동
-- [x] portal-B
 - [x] hurdle
 - [x] stone
-- [x] board
 - [x] stick : player와 충돌시, player가 튕겨져 나감
 - [x] ice : palyer와 충돌시, player의 position 변화. 마찰력 0
+- [ ] ice_set
 - [x] snow_set
-- [x] grass
 - [x] track
+- [ ] result
 
 
 [Prefab]
 - [ ] hurdle
 - [x] stone
-//- [ ] tire
 - [ ] stick
-- [ ] portal-A
-- [ ] portal_B
-- [x] rain
-- [x] snow
 - [ ] snow_set
 - [x] cloud
 - [x] darkCloud
 - [ ] ice
-- [x] heat_haze
-- [ ] track
-- [ ] grass
+- [x] track
 - [ ] particle
-- [ ] result1,2
+- [ ] result
 
 [Physic Material]
 - [ ] board : static friction = 0.2
@@ -84,7 +70,6 @@
 
 [Code]
 - [ ] player movement: KeyDown >> player position(left/right/up)
-- [ ] camera movement: trace player
 - [ ] obstacle creation: 
 - [ ] obstacle movement: 
 - [ ] field: player's drag change
@@ -113,13 +98,11 @@
 - [x] snow_set model : 눈덩이
 - [x] ice model : 빙판
 - [x] portalEffect
-- [ ] track image : 직접 구현
-- [ ] grass image
+- [x] track image : 직접 구현
 - [ ] player&hurdle collision sound
 - [ ] player&stone collision sound
 - [ ] player&stick collision sound
 - [ ] player&portal collision sound
-- [ ] player&grass collision sound
 - [ ] background sound
 - [ ] timer < 10 alert sound
 - [ ] start sound
@@ -129,7 +112,3 @@
 - [ ] cloud sound : wind
 - [ ] rain sound
 - [ ] snow sound
-
-++
-- [ ] snow tree model
-- [ ] snow man
