@@ -12,7 +12,8 @@
 - [ ] hurdle : 일정 간격을 두고 생성한다.
 - [ ] stone : 돌멩이가 랜덤한 위치에서 생성되고 중력에 의해 떨어진다. 바닥에 닿으면 사라진다.
 - [ ] stone : 돌멩이의 그림자가 잘 보이도록 해서 어디로 떨어질지 예측할 수 있어야 한다.
-- [ ] board : 좁고 긴 판 한 개 생성한다. 마찰력과 player의 최대 이동 속도도 낮춘다.
+- [ ] board : 좁고 긴 판 한 개 생성한다. player의 최대 이동 속도와 점프 높이를 낮춘다.
+- [ ] board : 판 위에서는 바람에 의해 player의 x 좌표가 미세하게 변한다.
 - [ ] stick : 벽에서 일정 속도로 나왔다 들어갔다를 반복한다.
 
 [Collider]
@@ -20,19 +21,19 @@
 - [ ] player&stone : 돌멩이가 사라지고, Player는 n초간 움직이지 못한다.
 - [ ] player&stick : player가 튕겨져 나가고 n초간 움직이지 못한다. stick는 그대로 움직인다.
 - [ ] player&portal : player가 다음 track의 portal-B의 위치로 이동한다.
-- [ ] player&ice : player가 ice 위에서 미끄러지고 n초간 움직이지 못한다.
+- [ ] player&ice : player의 이동속도와 점프 높이가 감소한다.
+- [ ] player&snow_set : player의 이동 속도가 감소한다.
 
 [Weather]
 - [ ] 일정 시간마다 랜덤으로 'sun', 'cloud', 'rain', 'snow'을 구현한다.
-- [ ] light 추가하여 해를 표현한다.
 - [ ] sun : 해를 추가하고 지열로 인한 아지랑이를 구현한다.
 - [ ] sun : player의 속도가 현저하게 느려진다.
 - [ ] cloud : 해보다 낮은 위치에 천천히 이동하는 구름을 구현한다.
 - [ ] rain : 구름을 cloud 보다 많이 생성한다. 비가 내리고, 바닥에 닿으면 사라진다.
 - [ ] rain : player의 공기 저항을 올린다.
 - [ ] snow : 구름을 rain만큼 생성한다. 눈이 내리고, 바닥에 닿으면 사라진다.
-- [ ] snow : 눈덩이와 빙판이 랜덤으로 생긴다. player가 뛰거나 옆으로 이동하여 피할 수 있을 정도의 사이즈로 구현한다
-- [ ] snow : player의 최대 이동 속도를 낮추고 x 좌표값이 랜덤으로 미세하게 변한다.
+- [ ] snow : 눈덩이와 빙판이 랜덤으로 생긴다.
+- [ ] snow : player의 이동 속도를 낮추고 x 좌표값이 랜덤으로 미세하게 변한다.
 
 [Portal]
 - [ ] track 1 -> track 2 : portal-A, portal-B

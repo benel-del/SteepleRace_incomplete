@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4300548984884912982}
   m_Layer: 0
   m_Name: track
-  m_TagString: track
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,6 +136,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4300548984884912982}
     m_Modifications:
+    - target: {fileID: 713260717327240675, guid: 778d6b448e19f68419adddfc81936dd7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7288275926862468531, guid: 778d6b448e19f68419adddfc81936dd7,
         type: 3}
       propertyPath: m_Name

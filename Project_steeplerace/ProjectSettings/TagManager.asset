@@ -7,13 +7,10 @@ TagManager:
   - hurdle
   - stone
   - stick
-  - partal-A
-  - portal-B
-  - snow_set
   - ice
+  - snow_set
   - track
-  - grass
-  - board
+  - result
   layers:
   - Default
   - TransparentFX

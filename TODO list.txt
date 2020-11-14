@@ -4,28 +4,28 @@
 - [x] how to implement of each requirement
 
 [GameObject]
-- [z] player(1) : rigidbody
+- [x] ScriptObject
+- [x] player(1) : rigidbody
 - [ ] hurdle(n) : rigidbody, prefab
 - [ ] stone(n) : rigidbody, prefab, Dynamic random creation
 - [x] board(1)
 - [ ] stick(n) : prefab
-- [ ] portal-A(1) : prefab
-- [ ] portal-B(1) : prefab
+- [x] portal-A(1) : prefab
+- [x] portal-B(1) : prefab
 - [ ] portal-C(1) : gound-3 bottom
-- [ ] rain(n) : particle
-- [ ] snow(n) : particle
-- [ ] snow_set(n) : prefab, Dynamic random creation
-- [ ] cloud(n) : prefab, Dynamic random creation    // particle
-- [ ] darkCloud(n) : prefab, Dynamic random creation    // particle
-- [ ] ice(n) : prefab, Dynamic creation
-- [ ] heat_haze(n) : particle,
-- [ ] Gsun : Dynamic creation
-- [ ] Gcloud : Dynamic creation
-- [ ] Grain : Dynamic creation
-- [ ] Gsnow : Dynamic creation
+- [x] rain : particle
+- [x] snow : particle
+- [x] snow_set(n) : prefab, Dynamic random creation
+- [x] cloud(n) : prefab, Dynamic random creation    // particle
+- [x] darkCloud(n) : prefab, Dynamic random creation    // particle
+- [x] ice(n) : prefab, Dynamic creation
+- [x] heat_haze : particle
+- [x] Gsun : Dynamic creation
+- [x] Gcloud : Dynamic creation
+- [x] Grain : Dynamic creation
+- [x] Gsnow : Dynamic creation
 - [x] track(3) : prefab
-- [ ] portalEffect : prefab, Dynamic creation
-- [ ] GameObject (for scripts)
+- [x] portalEffect : prefab, Dynamic creation
 - [ ] time : is_traking
 - [ ] distance : is_traking
 - [ ] result(2) : is_traking, prefab, Dynamic creation
@@ -33,12 +33,12 @@
 - [ ] goalLine
 
 [Field]
-- [ ] partal-A = start point
+- [ ] partal-A = end point
 - [ ] track 1 : hurdle
 - [ ] track 2 : stone
 - [x] track 3 : narrow board
 - [ ] track 4 : stick
-- [ ] portal-B = end point
+- [x] portal-B = start point
 
 [Tag]
 - [x] player
@@ -46,9 +46,8 @@
 - [x] stone
 - [x] stick : player와 충돌시, player가 튕겨져 나감
 - [x] ice : palyer와 충돌시, player의 position 변화. 마찰력 0
-- [ ] ice_set
 - [x] snow_set
-- [x] track
+- [x] track : track3
 - [ ] result
 
 
@@ -56,26 +55,21 @@
 - [ ] hurdle
 - [x] stone
 - [ ] stick
-- [ ] snow_set
+- [x] snow_set
 - [x] cloud
 - [x] darkCloud
-- [ ] ice
+- [x] ice
 - [x] track
-- [ ] particle
 - [ ] result
 
-[Physic Material]
-- [ ] board : static friction = 0.2
-- [ ] ice : static friction = 0
-
 [Code]
-- [ ] player movement: KeyDown >> player position(left/right/up)
+- [x] player movement: KeyDown >> player position(left/right/up)
 - [ ] obstacle creation: 
 - [ ] obstacle movement: 
-- [ ] field: player's drag change
-- [ ] field change: player&portal-A collision >> player position=portal-B position
-- [ ] weather creation: 
-- [ ] weather effect: player's speed change
+- [x] field: player's drag change
+- [x]] field change: player&portal-A collision >> player position=portal-B position
+- [x] weather creation: 
+- [x] weather effect: player's speed change
 - [ ] timer: countDown
 - [ ] distance: player ~ end point
 - [ ] sound setting: 
@@ -108,7 +102,8 @@
 - [ ] start sound
 - [ ] success sound
 - [ ] failed sound
+- [ ] wind sound : for board
 - [ ] sun sound : player가 지친 소리
-- [ ] cloud sound : wind
+- [ ] cloud sound :
 - [ ] rain sound
 - [ ] snow sound
