@@ -22,13 +22,12 @@ public class changeWeather : MonoBehaviour
     }
 
     void change(){
-        Debug.Log("날씨 변환");
         if(GameObject.FindWithTag("result") == null){
             if(pre != rand)
                 switch(rand){
                     case 3: // Gsun
                         dl.GetComponent<Light>().intensity = 1.2f;
-                        instance1 = (GameObject) Instantiate(instance[0] as GameObject, new Vector3(0, 0, 0), Quaternion.identity);
+                        instance1 = (GameObject) Instantiate(instance[rand] as GameObject, new Vector3(0, 0, 0), Quaternion.identity);
                         //sun.Play();
                         break;
                     case 0: // Gcloud
@@ -37,13 +36,14 @@ public class changeWeather : MonoBehaviour
                         //cloud.Play();
                         break;
                     case 1: // Grain
-                        dl.GetComponent<Light>().intensity = 0.9f;
+                        dl.GetComponent<Light>().intensity = 0.8f;
                         instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
-                        player.GetComponent<PlayerMove>().speed -= 10;
+                        player.GetComponent<PlayerMove>().speed -= 4;
+                        player.GetComponent<PlayerCollision>().initSpeed -= 4;
                         //rain.Play();
                         break;
                     case 2: // Gsnow
-                        dl.GetComponent<Light>().intensity = 0.9f;
+                        dl.GetComponent<Light>().intensity = 0.8f;
                         instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
                         //snow.Play();
                         break;
@@ -58,7 +58,8 @@ public class changeWeather : MonoBehaviour
             if(pre != rand){
                 Destroy(instance1);
                 if(pre == 1){
-                    player.GetComponent<PlayerMove>().speed += 10;
+                    player.GetComponent<PlayerMove>().speed += 4;
+                    player.GetComponent<PlayerCollision>().initSpeed += 4;
                 }
             }
         }

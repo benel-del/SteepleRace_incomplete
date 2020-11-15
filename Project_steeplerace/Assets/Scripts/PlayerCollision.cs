@@ -8,7 +8,8 @@ public class PlayerCollision : MonoBehaviour
     public AudioSource wind, hurdle, stick, snow, portal;
     public GameObject portalA, portalB;
     public GameObject track1, track2, track3, track4;
-    private int initSpeed, notMoveTime;
+    public int initSpeed;
+    private int notMoveTime;
     private float initJump;
     private GameObject instance, effect;
     void Start()
@@ -23,7 +24,7 @@ public class PlayerCollision : MonoBehaviour
     void OnCollisionEnter(Collision other){
         if(other.gameObject.name == "board"){
             GetComponent<PlayerMove>().jump = 30f;
-            GetComponent<PlayerMove>().speed = 5;
+            GetComponent<PlayerMove>().speed = initSpeed - 3;
             //wind.Play();
         }
         else if(other.gameObject.tag == "snow_set"){
@@ -32,7 +33,7 @@ public class PlayerCollision : MonoBehaviour
         }
         else{
             GetComponent<PlayerMove>().jump = initJump;
-            GetComponent<PlayerMove>().speed = initSpeed;                
+            GetComponent<PlayerMove>().speed = initSpeed;
             if(other.gameObject.name == "hurdle"){
                 notMove = notMoveTime;
                 //hurdle.Play();
@@ -72,13 +73,13 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionStay(Collision other){
         if(other.gameObject.name == "board" || other.gameObject.tag == "snow_set")
-            transform.position = new Vector3(transform.position.x + Random.Range(-5, 5) * 0.01f, transform.position.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x + Random.Range(-3, 3) * 0.01f, transform.position.y, transform.position.z);
         if(other.gameObject.tag == "ice"){
             GetComponent<PlayerMove>().jump = 30f;
-            GetComponent<PlayerMove>().speed = 4;
+            GetComponent<PlayerMove>().speed = initSpeed - 4;
         }
         else if(other.gameObject.tag == "snow_set"){
-            GetComponent<PlayerMove>().speed = 4;
+            GetComponent<PlayerMove>().speed = initSpeed - 4;
         }
     }
 }
