@@ -6,7 +6,7 @@ public class deleteCloud : MonoBehaviour
 {
     void Update()
     {
-        if(!GameObject.Find("Gcloud"))
+        if(!GameObject.FindWithTag("Gcloud"))
             Destroy(gameObject);
     }
 }

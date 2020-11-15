@@ -6,7 +6,7 @@ public class deleteSnow : MonoBehaviour
 {
     void Update()
     {
-        if(!GameObject.Find("Gsnow") || GameObject.FindWithTag("track"))
+        if(!GameObject.FindWithTag("Gsnow") || GameObject.FindWithTag("track"))
             Destroy(gameObject);
     }
 }

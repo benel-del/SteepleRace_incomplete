@@ -6,15 +6,15 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 
 [Hierarchy]
 - [x] Directional Light
-- [ ] ScriptObject : MainScript.cs, changeWeather, Start.cs
-- [ ] player : rigidbody, rotation-freeze, PlayerMove.cs, PlayerCollision.cs, changeStaticFriction.cs
+- [ ] ScriptObject : EmptyObject. MainScript.cs, changeWeather, Start.cs
+- [ ] player : rigidbody, rotation-freeze, PlayerMove.cs, PlayerCollision.cs
     - [x] Main Camera
     - [ ] time : 3D text
     - [ ] distance : 3D text
     - [ ] start : 3D text
     - [ ] result1 : Resources
     - [ ] result2 : Resources
-- [ ] track 1 : stoneCreate.cs
+- [ ] track 1 : createStone.cs
     - [x] track : prefab
     - [ ] hurdle(n) : rigidbody, prefab
 - [ ] track 2
@@ -22,11 +22,13 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - [ ] stone : Resources
 - [ ] track 3(2)
     - [x] board :
-    - [ ] portal-C = portal-A
+    - [ ] portal-C
 - [ ] track 4
     - [x] track : prefab
-    - [ ] stick(n) : rigidbody, prefab
-    - [ ] goalLine
+    - [ ] stick(n) : prefab, moveStick.cs
+    - [ ] end Point
+        - [ ]GoalLine: rigidbody
+
 - [x] portal-A
 - [x] portal-B
 - [x] Gsun : Resources
@@ -62,7 +64,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 
 
 [Scripts]
-- [x] PlayerMove.cs : 게임 종료 전까지 Player 이동
+- [x] PlayerMove.cs : Player 이동
     :: Player
     - if(GameObject.FindWithTag("result") && gameObject.GetComponent<PlayerCollision>().notMove == 0)
         if(transform.position.y < -1)
@@ -80,7 +82,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : int speed, float jump, AudioSource falling
     - private : 
 
-- [ ] MainScript.cs : timer, distance, game result
+- [ ] MainScript.cs : timer/distance 출력, game result 로드
     :: ScriptObject
     - start()
         distance = trackLength * 4
@@ -159,7 +161,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : int notMove, AudioSource wind, hurdle, stick, snow, portal, GameObject portalP
     - private : int initSpeed, float initJump, int notMoveTime, GameObject instance, GameObject effect
 
-- [ ] createStone.cs : stone 생성
+- [ ] createStone.cs : stone 자동 생성
     :: track 1
     - start()
         stone = Resources.Load("stone")
@@ -181,7 +183,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : AudioSource stone
     - private : 
 
-- [ ] stickMove.cs : stick의 움직임
+- [ ] moveStick.cs : stick의 움직임
     :: stick
     - WaitForSeconds(Random.Range(0,2))
     - while(true)
@@ -192,7 +194,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : 
     - private : 
 
-- [x] changeWeather.cs : 날씨 변화, 조명 밝기 조절
+- [x] changeWeather.cs : 날씨 변화, 날씨 영향
     :: ScriptObject
     - instance = Resources.LoadAll("weather")   // Gsun, Gcloud, Grain, Gsnow
     - pos = new Vector3(0, 150, 0)
@@ -227,7 +229,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : GameObject player, AudioSource sun, cloud, rain, snow, Light dl
     - private : GameObject instance[4], GameObject instance1, Vector3 pos
 
-- [x] createCloud.cs : 구름 생성
+- [x] createCloud.cs : 날씨가 Cloud일 경우, 관련 asset 자동 생성
     :: Gcloud
     - cloud = Resources.Load("cloud") as GameObject;
     - for(int i = 0; i < 20; i++)
@@ -237,14 +239,14 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : 
     - private : float x, z, GameObject cloud
 
-- [x] deleteCloud.cs : 구름 소멸
+- [x] deleteCloud.cs : 날씨가 Cloud가 아닐 경우 관련 asset 자동 소멸
     :: cloud
     - if(!GameObject.Find("Gcloud"))
         Destroy(gameObject)
     - public :
     - private : 
 
-- [x] createRain.cs : 먹구름 생성
+- [x] createRain.cs : 날씨가 Rain일 경우, 관련 asset 자동 생성 
     :: Grain
     - darkCloud = Resources.Load("darkCloud")
     - for(int i = 0; i < 60; i++)
@@ -254,14 +256,14 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : 
     - private : float x, z, GameObject darkCloud
 
-- [x] deleteRain.cs : 먹구름 소멸
+- [x] deleteRain.cs : 날씨가 Rain이 아닐 경우 관련 asset 자동 소멸
     :: darkCloud
     - if(!GameObject.Find("Grain") && !GameObject.Find("Gsnow"))
         Destroy(gameObject)
     - public :
     - private : 
 
-- [x] createSnow.cs : 먹구름, snow_set, ice 생성
+- [x] createSnow.cs : 날씨가 Snow일 경우, 관련 asset 자동 생성 
     :: Gsnow
     - start()
         darkCloud = Resources.Load("darkCloud")
@@ -294,7 +296,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : 
     - private :
 
-- [x] deleteSnow.cs : snow_set, ice 소멸
+- [x] deleteSnow.cs : 날씨가 Snow가 아닐 경우 관련 asset 자동 소멸
     :: snow_set, ice
     - if(!GameObject.Find("Gsnow") || GameObject.FindWithTag("track"))  // track3
         Destroy(gameObject);

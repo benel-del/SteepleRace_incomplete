@@ -4766,7 +4766,7 @@ GameObject:
   - component: {fileID: -7182901241131834279}
   m_Layer: 0
   m_Name: Gsnow
-  m_TagString: Untagged
+  m_TagString: Gsnow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -29,14 +29,14 @@ public class createSnow : MonoBehaviour
     }
     void CreateSub(){
         for(int i = 0; i < 15; i++){
-                x = Random.Range(-10, 10);
-                z = Random.Range(-23, 23);
-                Instantiate(ice, new Vector3(x*2.0f, 0.02f, z*10.0f), Quaternion.identity);
-            }
-            for(int i = 0; i < 80; i++){
-                x = Random.Range(-10, 10);
-                z = Random.Range(-23, 23);
-                Instantiate(snow_set, new Vector3(x*2.0f, 0.02f, z*10.0f), Quaternion.identity);
-            }
+            x = Random.Range(-10, 10);
+            z = Random.Range(-23, 23);
+            Instantiate(ice, new Vector3(x*2.0f, 0.02f, z*10.0f), Quaternion.identity);
+        }
+        for(int i = 0; i < 80; i++){
+            x = Random.Range(-10, 10);
+            z = Random.Range(-23, 23);
+            Instantiate(snow_set, new Vector3(x*2.0f, 0.02f, z*10.0f), Quaternion.identity);
+        }
     }
 }

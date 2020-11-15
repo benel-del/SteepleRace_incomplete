@@ -10,57 +10,57 @@ public class changeWeather : MonoBehaviour
     private object[] instance;
     private GameObject instance1;
     private Vector3 pos;
-    private int count;
+    int rand, pre;
 
     void Start(){
-        instance = Resources.LoadAll("weather");
+        instance = Resources.LoadAll("weather");    // cloud, rain, snow, sun
         pos = new Vector3(0, 150, 0);
-        count = 0;
-        
-        while(GameObject.FindWithTag("result") == null){
-            int rand = Random.Range(0,4);
-            switch(rand){
-                case 0: // Gsun
-                    dl.GetComponent<Light>().intensity = 1f;
-                    instance1 = (GameObject) Instantiate(instance[0] as GameObject, new Vector3(0, 0, 0), Quaternion.identity);
-                    player.GetComponent<PlayerMove>().speed -= 10;
-                    //sun.Play();
-                    wating();
-                    player.GetComponent<PlayerMove>().speed += 10;
-                    break;
-                case 1: // Gcloud
-                    dl.GetComponent<Light>().intensity = 0.8f;
-                    instance1 = (GameObject) Instantiate(instance[1] as GameObject, pos, Quaternion.identity);
-                    //cloud.Play();
-                    wating();
-                    break;
-                case 2: // Grain
-                    dl.GetComponent<Light>().intensity = 0.5f;
-                    instance1 = (GameObject) Instantiate(instance[2] as GameObject, pos, Quaternion.identity);
-                    player.GetComponent<Rigidbody>().drag += 10;
-                    //rain.Play();
-                    wating();
-                    player.GetComponent<Rigidbody>().drag -= 10;
-                    break;
-                case 3: // Gsnow
-                    dl.GetComponent<Light>().intensity = 0.5f;
-                    instance1 = (GameObject) Instantiate(instance[3] as GameObject, pos, Quaternion.identity);
-                    player.GetComponent<PlayerMove>().speed -= 5;
-                    //snow.Play();
-                    wating();
-                    player.GetComponent<PlayerMove>().speed += 5;
-                    break;
-            }
-            Destroy(instance1);
+        rand = Random.Range(0,4);
+        pre = -1;
+        InvokeRepeating("change", 1f, 30f);
+        InvokeRepeating("delete", 30.1f, 30f);
+    }
+
+    void change(){
+        Debug.Log("날씨 변환");
+        if(GameObject.FindWithTag("result") == null){
+            if(pre != rand)
+                switch(rand){
+                    case 3: // Gsun
+                        dl.GetComponent<Light>().intensity = 1.2f;
+                        instance1 = (GameObject) Instantiate(instance[0] as GameObject, new Vector3(0, 0, 0), Quaternion.identity);
+                        //sun.Play();
+                        break;
+                    case 0: // Gcloud
+                        dl.GetComponent<Light>().intensity = 1f;
+                        instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
+                        //cloud.Play();
+                        break;
+                    case 1: // Grain
+                        dl.GetComponent<Light>().intensity = 0.9f;
+                        instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
+                        player.GetComponent<PlayerMove>().speed -= 10;
+                        //rain.Play();
+                        break;
+                    case 2: // Gsnow
+                        dl.GetComponent<Light>().intensity = 0.9f;
+                        instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
+                        //snow.Play();
+                        break;
+                }
         }
     }
 
-    void wating(){
-        if(count % 50*30 == 0)
-            return;
-    }
-
-    void FixedUpdate(){
-        count++;
+    void delete(){
+        if(GameObject.FindWithTag("result") == null){
+            pre = rand;
+            rand = Random.Range(0,4);
+            if(pre != rand){
+                Destroy(instance1);
+                if(pre == 1){
+                    player.GetComponent<PlayerMove>().speed += 10;
+                }
+            }
+        }
     }
 }

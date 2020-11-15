@@ -11,6 +11,10 @@ TagManager:
   - snow_set
   - track
   - result
+  - Gcloud
+  - Gsnow
+  - Grain
+  - Gsun
   layers:
   - Default
   - TransparentFX

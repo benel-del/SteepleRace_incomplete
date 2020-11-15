@@ -27,6 +27,7 @@ public class PlayerCollision : MonoBehaviour
             //wind.Play();
         }
         else if(other.gameObject.tag == "snow_set"){
+            GetComponent<PlayerMove>().jump = initJump;
             //snow.Play();
         }
         else{

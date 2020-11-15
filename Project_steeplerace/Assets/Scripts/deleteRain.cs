@@ -6,7 +6,7 @@ public class deleteRain : MonoBehaviour
 {
     void Update()
     {
-        if(!GameObject.Find("Grain") && !GameObject.Find("Gsnow"))
+        if(!GameObject.FindWithTag("Grain") && !GameObject.FindWithTag("Gsnow"))
             Destroy(gameObject);
     }
 }
