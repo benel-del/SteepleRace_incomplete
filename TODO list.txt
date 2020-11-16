@@ -44,11 +44,15 @@
 - [x] player
 - [x] hurdle
 - [x] stone
-- [x] stick : player와 충돌시, player가 튕겨져 나감
-- [x] ice : palyer와 충돌시, player의 position 변화. 마찰력 0
+- [x] stick
+- [x] ice
 - [x] snow_set
 - [x] track : track3
 - [ ] result
+- [x] Gsun
+- [x] Gcloud
+- [x] Grain
+- [x]Gsnow
 
 
 [Prefab]
@@ -67,7 +71,7 @@
 - [ ] obstacle creation: 
 - [ ] obstacle movement: 
 - [x] field: player's drag change
-- [x]] field change: player&portal-A collision >> player position=portal-B position
+- [x] field change: player&portal-A collision >> player position=portal-B position
 - [x] weather creation: 
 - [x] weather effect: player's speed change
 - [ ] timer: countDown
