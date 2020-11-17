@@ -26,10 +26,6 @@
 - [x] Gsnow : Dynamic creation
 - [x] track(3) : prefab
 - [x] portalEffect : prefab, Dynamic creation
-- [ ] time : is_traking
-- [ ] distance : is_traking
-- [ ] result(2) : is_traking, prefab, Dynamic creation
-- [ ] start : is_traking, Dynamic creation
 - [ ] goalLine
 
 [Field]
@@ -48,7 +44,6 @@
 - [x] ice
 - [x] snow_set
 - [x] track : track3
-- [ ] result
 - [x] Gsun
 - [x] Gcloud
 - [x] Grain
@@ -64,7 +59,6 @@
 - [x] darkCloud
 - [x] ice
 - [x] track
-- [ ] result
 
 [Code]
 - [x] player movement: KeyDown >> player position(left/right/up)
@@ -74,8 +68,8 @@
 - [x] field change: player&portal-A collision >> player position=portal-B position
 - [x] weather creation: 
 - [x] weather effect: player's speed change
-- [ ] timer: countDown
-- [ ] distance: player ~ end point
+- [x] timer: countDown
+- [x] distance: player ~ end point
 - [ ] sound setting: 
 
 [Asset]
@@ -106,8 +100,8 @@
 - [ ] start sound
 - [ ] success sound
 - [ ] failed sound
-- [ ] wind sound : for board
+- [x] wind sound : for board
 - [ ] sun sound : player가 지친 소리
 - [ ] cloud sound :
-- [ ] rain sound
+- [x] rain sound
 - [ ] snow sound

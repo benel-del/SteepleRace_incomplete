@@ -6,14 +6,16 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 
 [Hierarchy]
 - [x] Directional Light
-- [ ] ScriptObject : EmptyObject. MainScript.cs, changeWeather, Start.cs
+- [ ] ScriptObject : EmptyObject. InitScene.cs, changeWeather, Start.cs
 - [x] player : rigidbody, rotation-freeze, PlayerMove.cs, PlayerCollision.cs
     - [x] Main Camera
-    - [ ] time : 3D text
-    - [ ] distance : 3D text
-    - [ ] start : 3D text
-    - [ ] result1 : Resources
-    - [ ] result2 : Resources
+    - [x] time : UI text
+    - [x] distance : UI text
+    - [x] speed : UI text
+    - [x] weather : UI text
+    - [x] weatherEffect : UI text
+    - [ ] start : UI text
+    - [x] result : UI text, "Game success" or "Gane Failed"
 - [ ] track 1 : createStone.cs
     - [x] track : prefab
     - [ ] hurdle(n) : rigidbody, prefab
@@ -27,7 +29,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - [x] track : prefab
     - [ ] stick(n) : prefab, moveStick.cs
     - [ ] end Point
-        - [ ]GoalLine: rigidbody
+        - [ ] GoalLine: rigidbody
 
 - [x] portal-A
 - [x] portal-B
@@ -48,8 +50,6 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 * end point = portal-A
 
 [Resources]
-- [ ] result1 : 3D text, "Game success"
-- [ ] result2 : 3D text, "Game Failed"
 - [ ] stone : Prefab, rigidbody, deleteStone.cs
 - [x] portalEffect : Particle System
 - [x] weather/Gsun : GameObjacet
@@ -66,34 +66,8 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 [Scripts]
 - [x] PlayerMove.cs : Player 이동
     :: Player
-- [ ] MainScript.cs : timer/distance 출력, game result 로드
+- [x] InitScene.cs : timer/distance 출력, game result 로드
     :: ScriptObject
-    - start()
-        distance = trackLength * 4
-        limit_time = ...
-    - getDistance() // in Update()
-        if(GameObjacet.Find("track 1").activeSelf == true)
-            distance = trackLength * 4 - player.position.z
-        else if(GameObjacet.Find("track 2").activeSelf == true)
-            distance = trackLength * 3 - player.position.z
-        else if(GameObjacet.Find("track 3").activeSelf == true)
-            distance = trackLength * 2 - player.position.z
-        else
-            distance = trackLength * 1 - player.position.z
-        distance.GetComponent<Text>.text = distance + "m"
-    - Timer()   // in Update()
-        if(!distance)  // player position == end point
-            GameObjacet.Find("result1").SetActive(true)
-        else
-            if(!limit_time) // time out
-                GameObjacet.Find("result2").SetActive(true)
-            else if(!(++count % 50))
-                time.GetComponent<Text>.text = --limit_time + "초"
-                if(player.GetComponent<Collision>().notMove)
-                    player.GetComponent<Collision>().notMove--
-    - public : int trackLength(500), float distance, GameObjacet player, GameObjacet distance, GameObjacet time
-    - private : int count(0), int limit_time(60)
-
 - [x] PlayerCollision.cs : 충돌 후 player 상태 변화(speed, notMoveTime) + sound
     :: player
 - [ ] createStone.cs : stone 자동 생성

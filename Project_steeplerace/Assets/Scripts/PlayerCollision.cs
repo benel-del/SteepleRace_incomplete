@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public int notMove;
-    public AudioSource wind, hurdle, stick, snow, portal;
+    public static int notMove, initSpeed;
+    public AudioSource wind, hurdle, stick, snow_set, ice, portal;
     public GameObject portalA, portalB;
     public GameObject track1, track2, track3, track4;
-    public int initSpeed;
     private int notMoveTime;
     private float initJump;
     private GameObject instance, effect;
@@ -22,64 +21,71 @@ public class PlayerCollision : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision other){
-        if(other.gameObject.name == "board"){
-            GetComponent<PlayerMove>().jump = 30f;
-            GetComponent<PlayerMove>().speed = initSpeed - 3;
-            //wind.Play();
+        PlayerMove.jump = initJump;
+        PlayerMove.speed = initSpeed;
+        if(other.gameObject.name == "hurdle"){
+            notMove = notMoveTime;
+            hurdle.Play();
         }
-        else if(other.gameObject.tag == "snow_set"){
-            GetComponent<PlayerMove>().jump = initJump;
-            //snow.Play();
+        if(other.gameObject.tag == "stone")
+            notMove = notMoveTime;
+        if(other.gameObject.name == "stick"){
+            notMove = notMoveTime;
+            stick.Play();
+        }
+        if(other.gameObject.name == "portal-C")
+            transform.position = portalB.GetComponent<Transform>().position;
+        if(other.gameObject.name == "portal-A"){
+            if(track1.activeSelf){
+                track1.SetActive(false);
+                track2.SetActive(true);
+            }
+            else if(track2.activeSelf){
+                track2.SetActive(false);
+                track3.SetActive(true);
+            }
+            else if(track3.activeSelf){
+                track3.SetActive(false);
+                portalA.SetActive(false);
+                track4.SetActive(true);
+            }
+            transform.position = portalB.GetComponent<Transform>().position;
+            portal.Play();
+        }
+        if(other.gameObject.name == "portal-B"){
+            instance = Instantiate(effect, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.Euler(-90, 0, 0));
+            Destroy(instance, 3f);
+        }
+        if(other.gameObject.name == "board"){
+            PlayerMove.jump = 30f;
+            PlayerMove.speed = initSpeed - 3;
+            wind.Play();
         }
         else{
-            GetComponent<PlayerMove>().jump = initJump;
-            GetComponent<PlayerMove>().speed = initSpeed;
-            if(other.gameObject.name == "hurdle"){
-                notMove = notMoveTime;
-                //hurdle.Play();
-            }
-            if(other.gameObject.tag == "stone")
-                notMove = notMoveTime;
-            if(other.gameObject.name == "stick"){
-                notMove = notMoveTime;
-                //stick.Play();
-            }
-            if(other.gameObject.name == "portal-C")
-                transform.position = portalB.GetComponent<Transform>().position;
-            if(other.gameObject.name == "portal-A"){
-                if(track1.activeSelf){
-                    track1.SetActive(false);
-                    track2.SetActive(true);
-                }
-                else if(track2.activeSelf){
-                    track2.SetActive(false);
-                    track3.SetActive(true);
-                }
-                else if(track3.activeSelf){
-                    track3.SetActive(false);
-                    portalA.SetActive(false);
-                    track4.SetActive(true);
-                }
-                transform.position = portalB.GetComponent<Transform>().position;
-                //portal.Play();
-            }
-            if(other.gameObject.name == "portal-B"){
-                instance = Instantiate(effect, new Vector3(transform.position.x, 0.5f, transform.position.z), Quaternion.Euler(-90, 0, 0));
-                Destroy(instance, 3f);
-            }
+            wind.Stop();
         }
-        //Debug.Log(other.gameObject.name + ": " + GetComponent<PlayerMove>().speed);
+        if(other.gameObject.tag == "snow_set"){
+            PlayerMove.jump = initJump;
+            snow_set.Play();
+        }
     }
 
     void OnCollisionStay(Collision other){
         if(other.gameObject.name == "board" || other.gameObject.tag == "snow_set")
             transform.position = new Vector3(transform.position.x + Random.Range(-3, 3) * 0.01f, transform.position.y, transform.position.z);
         if(other.gameObject.tag == "ice"){
-            GetComponent<PlayerMove>().jump = 30f;
-            GetComponent<PlayerMove>().speed = initSpeed - 4;
+            PlayerMove.jump = 30f;
+            PlayerMove.speed = initSpeed - 4;
         }
         else if(other.gameObject.tag == "snow_set"){
-            GetComponent<PlayerMove>().speed = initSpeed - 4;
+            PlayerMove.speed = initSpeed - 4;
         }
+    }
+
+    void onCollisionExit(Collision other){
+        if(other.gameObject.tag == "snow_set")
+            snow_set.Stop();
+        if(other.gameObject.tag == "ice")
+            ice.Stop();
     }
 }

@@ -6,11 +6,12 @@ public class changeWeather : MonoBehaviour
 {
     public GameObject player;
     public Light dl;
-    public AudioSource sun, cloud, rain, snow;
+    public AudioSource sun, cloud, rain, snow, thunder;
+    public static int rand;
     private object[] instance;
     private GameObject instance1;
     private Vector3 pos;
-    int rand, pre;
+    int pre;
 
     void Start(){
         instance = Resources.LoadAll("weather");    // cloud, rain, snow, sun
@@ -22,44 +23,57 @@ public class changeWeather : MonoBehaviour
     }
 
     void change(){
-        if(GameObject.FindWithTag("result") == null){
-            if(pre != rand)
-                switch(rand){
-                    case 3: // Gsun
-                        dl.GetComponent<Light>().intensity = 1.2f;
-                        instance1 = (GameObject) Instantiate(instance[rand] as GameObject, new Vector3(0, 0, 0), Quaternion.identity);
-                        //sun.Play();
-                        break;
-                    case 0: // Gcloud
-                        dl.GetComponent<Light>().intensity = 1f;
+        if(InitScene.oneTime){
+            if(pre != rand){
+                if(rand == 0){
+                    dl.GetComponent<Light>().intensity = 1f;
                         instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
-                        //cloud.Play();
-                        break;
-                    case 1: // Grain
-                        dl.GetComponent<Light>().intensity = 0.8f;
-                        instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
-                        player.GetComponent<PlayerMove>().speed -= 4;
-                        player.GetComponent<PlayerCollision>().initSpeed -= 4;
-                        //rain.Play();
-                        break;
-                    case 2: // Gsnow
-                        dl.GetComponent<Light>().intensity = 0.8f;
-                        instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
-                        //snow.Play();
-                        break;
+                        cloud.Play();
                 }
+                else{
+                    cloud.Stop();
+                }
+                if(rand == 1){
+                    dl.GetComponent<Light>().intensity = 0.8f;
+                    instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
+                    PlayerMove.speed -= 4;
+                    PlayerCollision.initSpeed -= 4;
+                    rain.Play();
+                    thunder.Play();
+                }
+                else{
+                    rain.Stop();
+                    thunder.Stop();
+                }
+                if(rand == 2){
+                    dl.GetComponent<Light>().intensity = 0.8f;
+                    instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
+                    snow.Play();
+                }
+                else{
+                    snow.Stop();
+                }
+                if(rand == 3){
+                    dl.GetComponent<Light>().intensity = 1.2f;
+                    instance1 = (GameObject) Instantiate(instance[rand] as GameObject, new Vector3(0, 0, 0), Quaternion.identity);
+                    sun.Play();
+                }
+                else{
+                    sun.Stop();
+                }
+            }
         }
     }
 
     void delete(){
-        if(GameObject.FindWithTag("result") == null){
+        if(InitScene.oneTime){
             pre = rand;
             rand = Random.Range(0,4);
             if(pre != rand){
                 Destroy(instance1);
                 if(pre == 1){
-                    player.GetComponent<PlayerMove>().speed += 4;
-                    player.GetComponent<PlayerCollision>().initSpeed += 4;
+                    PlayerMove.speed += 4;
+                    PlayerCollision.initSpeed += 4;
                 }
             }
         }
