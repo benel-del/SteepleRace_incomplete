@@ -29,8 +29,8 @@ public class PlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        //ani.Play(aniArr[3]);
-        ani.AddClip(aniArr[3]);
+        ani.Play(aniArr[3]);
+        //ani.AddClip(aniArr[3]);
         if(InitScene.oneTime) {
             if(PlayerCollision.notMove != 0)
                 ani.Play(aniArr[2]);

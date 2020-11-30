@@ -16,12 +16,12 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - [x] weatherEffect : UI text
     - [ ] start : UI text
     - [x] result : UI text, "Game success" or "Gane Failed"
-- [ ] track 1 : createStone.cs
+- [ ] track 1 
     - [x] track : prefab
-    - [ ] hurdle(n) : rigidbody, prefab
-- [ ] track 2
+    - [x] hurdle(n) : rigidbody, prefab
+- [ ] track 2 : createStone.cs
     - [x] track : prefab
-    - [ ] stone : Resources
+    - [x] stone : Resources
 - [ ] track 3(2)
     - [x] board :
     - [ ] portal-C
@@ -92,17 +92,8 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - public : AudioSource stone
     - private : 
 
-- [ ] moveStick.cs : stick의 움직임
+- [x] moveStick.cs : stick의 움직임
     :: stick
-    - WaitForSeconds(Random.Range(0,2))
-    - while(true)
-        GetComponent<Rigidbody>().AddForce(transform.left * 400)
-        WaitForSeconds(3)
-        GetComponent<Rigidbody>().AddForce(transform.right * 400)
-        WaitForSeconds(3)
-    - public : 
-    - private : 
-
 - [x] changeWeather.cs : 날씨 변화, 날씨 영향
     :: ScriptObject
 - [x] createCloud.cs : 날씨가 Cloud일 경우, 관련 asset 자동 생성

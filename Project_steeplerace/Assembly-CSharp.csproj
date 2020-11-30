@@ -63,10 +63,13 @@
      <Compile Include="Assets\Scripts\createCloud.cs" />
      <Compile Include="Assets\Scripts\createRain.cs" />
      <Compile Include="Assets\Scripts\createSnow.cs" />
+     <Compile Include="Assets\Scripts\createStone.cs" />
      <Compile Include="Assets\Scripts\deleteCloud.cs" />
      <Compile Include="Assets\Scripts\deleteRain.cs" />
      <Compile Include="Assets\Scripts\deleteSnow.cs" />
+     <Compile Include="Assets\Scripts\deleteStone.cs" />
      <Compile Include="Assets\Scripts\moveCloud.cs" />
+     <Compile Include="Assets\Scripts\moveStick.cs" />
      <None Include="Assets\Etc\IceMaterial\Shader\Ice.shader" />
      <None Include="Assets\Etc\VoxelAnimals\Documentation\ReadMe.txt" />
  <Reference Include="UnityEngine">
