@@ -1,8 +1,15 @@
 *****
 track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 다음 track을 load?Active?하여 생성
 
-* ver.trac Ative
+* ver.track Ative
 *****
+
++ hurdle 쓰러지기
++ hurdle, stick 때 player bouncy
++ sound 추가
++ 비 더 티나게
++ OnCollisionExit() 작동 x
+
 
 [Hierarchy]
 - [x] Directional Light
@@ -19,7 +26,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 - [x] track 1 
     - [x] track : prefab
     - [x] hurdle(n) : rigidbody, prefab
-- [ ] track 2 : createStone.cs
+- [x] track 2 : createStone.cs
     - [x] track : prefab
     - [x] stone : Resources
 - [ ] track 3(2)
@@ -50,7 +57,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 * end point = portal-A
 
 [Resources]
-- [ ] stone : Prefab, rigidbody, deleteStone.cs
+- [x] stone : Prefab, rigidbody, deleteStone.cs
 - [x] portalEffect : Particle System
 - [x] weather/Gsun : GameObjacet
 - [x] weather/Gcloud : GameObject, createCloud.cs
@@ -61,7 +68,8 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 - [x] snow_set : prefab, deleteSnow.cs
 - [x] ice : prefab, deleteSnow.cs
 
-
+[Physical Material]
+- [x] bounce
 
 [Scripts]
 - [x] PlayerMove.cs : Player 이동
@@ -70,28 +78,10 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     :: ScriptObject
 - [x] PlayerCollision.cs : 충돌 후 player 상태 변화(speed, notMoveTime) + sound
     :: player
-- [ ] createStone.cs : stone 자동 생성
-    :: track 1
-    - start()
-        stone = Resources.Load("stone")
-        startCoroutine(createStone)
-    - IEnumerator createStone() // InvokeRepeating은 active여부와 관계없이 계속 반복
-        while(true)
-            x = Random.Range(-12, 12)
-            z = Random.Range(-20, 20)
-            Instantiate(stone, new Vector3(x*2.0f, 30, z*10.0f)), Quaternion.identity)
-            yeild return null
-    - public :
-    - private : GameObject stone
-
-- [ ] deleteStone.cs : stone 소멸, Collision sound
+- [x] createStone.cs : stone 자동 생성
+    :: track 2
+- [x] deleteStone.cs : stone 소멸, Collision sound
     :: stone
-    - OnCollisionEnter(Collision other)
-        stone.Play()
-        Destroy(gameObject)
-    - public : AudioSource stone
-    - private : 
-
 - [x] moveStick.cs : stick의 움직임
     :: stick
 - [x] changeWeather.cs : 날씨 변화, 날씨 영향

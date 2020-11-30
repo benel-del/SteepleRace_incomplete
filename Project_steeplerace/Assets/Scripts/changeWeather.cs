@@ -18,8 +18,8 @@ public class changeWeather : MonoBehaviour
         pos = new Vector3(0, 150, 0);
         rand = Random.Range(0,4);
         pre = -1;
-        InvokeRepeating("change", 1f, 30f);
-        InvokeRepeating("delete", 30.1f, 30f);
+        InvokeRepeating("change", 5.05f, 30.05f);
+        InvokeRepeating("delete", 35.05f, 30.05f);
     }
 
     void change(){

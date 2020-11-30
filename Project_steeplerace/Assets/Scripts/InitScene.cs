@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class InitScene : MonoBehaviour
 {
-    public Text distanceText, speedText, timeText, resultText, weatherText, trackText, startText;
+    public Text distanceText, speedText, timeText, resultText, weatherText, trackText;
+    public AudioSource stone;
     public GameObject player;
     public static bool oneTime = true;
     private int limit_time, trackLength, track;
@@ -54,10 +55,10 @@ public class InitScene : MonoBehaviour
             }
             switch(changeWeather.rand){ // cloud, rain, snow, sun
                 case 0:
-                    weatherText.text = "CLOUD :: ";
+                    weatherText.text = "CLOUD :: 그림자";
                     break;
                 case 1:
-                    weatherText.text = "RAIN :: 이동속도 감소";
+                    weatherText.text = "RAIN :: 그림자, 이동속도 감소";
                     break;
                 case 2:
                     weatherText.text = "SNOW :: 장애물 생성";
@@ -92,5 +93,9 @@ public class InitScene : MonoBehaviour
             distance = trackLength * 1 - z;
             track = 4;
         }
+    }
+
+    public void StonePlay(){
+        stone.Play();
     }
 }

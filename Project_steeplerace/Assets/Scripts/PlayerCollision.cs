@@ -17,11 +17,29 @@ public class PlayerCollision : MonoBehaviour
         initJump = 60f;
         notMoveTime = 3;
         effect = Resources.Load("particleEffect") as GameObject;
-    }
-
-    void OnCollisionEnter(Collision other){
         PlayerMove.jump = initJump;
         PlayerMove.speed = initSpeed;
+    }
+    void onCollisionExit(Collision other){
+        Debug.Log(other.gameObject.name);
+        if(other.gameObject.tag == "snow_set"){
+            PlayerMove.speed = initSpeed;
+            snow_set.Stop();
+        }
+            
+        if(other.gameObject.tag == "ice"){
+            PlayerMove.jump = initJump;
+            PlayerMove.speed = initSpeed;
+            ice.Stop();
+        }
+            
+        if(other.gameObject.name == "board"){
+            PlayerMove.jump = initJump;
+            PlayerMove.speed = initSpeed;
+            wind.Stop();
+        } 
+    }
+    void OnCollisionEnter(Collision other){
         if(other.gameObject.tag == "hurdle"){
             GetComponent<Rigidbody>().AddForce(Vector3.back * 200f);
             notMove = notMoveTime;
@@ -62,31 +80,19 @@ public class PlayerCollision : MonoBehaviour
             PlayerMove.speed = initSpeed - 3;
             wind.Play();
         }
-        else{
-            wind.Stop();
-        }
         if(other.gameObject.tag == "snow_set"){
-            PlayerMove.jump = initJump;
+            PlayerMove.speed = initSpeed - 4;
             snow_set.Play();
+        }
+        if(other.gameObject.tag == "ice"){
+            PlayerMove.jump = 30f;
+            PlayerMove.speed = initSpeed - 4;
+            ice.Play();
         }
     }
 
     void OnCollisionStay(Collision other){
         if(other.gameObject.name == "board" || other.gameObject.tag == "snow_set")
             transform.position = new Vector3(transform.position.x + Random.Range(-3, 3) * 0.01f, transform.position.y, transform.position.z);
-        if(other.gameObject.tag == "ice"){
-            PlayerMove.jump = 30f;
-            PlayerMove.speed = initSpeed - 4;
-        }
-        else if(other.gameObject.tag == "snow_set"){
-            PlayerMove.speed = initSpeed - 4;
-        }
-    }
-
-    void onCollisionExit(Collision other){
-        if(other.gameObject.tag == "snow_set")
-            snow_set.Stop();
-        if(other.gameObject.tag == "ice")
-            ice.Stop();
     }
 }

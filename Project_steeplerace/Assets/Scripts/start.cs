@@ -28,7 +28,6 @@ public class start : MonoBehaviour
         }
         if(timer % 50 == 0 && timer == 50*8){
             st.enabled = false;
-            Debug.Log(PlayerCollision.notMove);
         }
     }
 }

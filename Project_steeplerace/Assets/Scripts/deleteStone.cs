@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class deleteStone : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void OnCollisionEnter(Collision other){
+        GameObject.Find("ScriptObject").GetComponent<InitScene>().StonePlay();  // TODO: sound 원거리
+        Destroy(gameObject, 2f);
     }
 }
