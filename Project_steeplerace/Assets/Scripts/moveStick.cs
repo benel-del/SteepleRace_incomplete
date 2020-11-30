@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class moveStick : MonoBehaviour
 {
-    void Start()
-    {
-        if(Random.Range(0,2) == 0)
-            transform.position = new Vector3(25, transform.position.y, transform.position.z);
-        else
-            transform.position = new Vector3(-25, transform.position.y, transform.position.z);
+    private float speed = 20f;
+    void Start(){
+        if(transform.position.x < 0)
+            speed *= -1;
     }
-
-    void Update()
+    void FixedUpdate()
     {
-        if(transform.position.x <= -25)
-            GetComponent<Rigidbody>().AddForce(Vector3.right * 400f * Time.deltaTime);
-        if(transform.position.x >= 25)
-            GetComponent<Rigidbody>().AddForce(Vector3.left * 400f * Time.deltaTime);
+        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        if(transform.position.x >= 25 || transform.position.x <= -25)
+         speed *= -1;
     }
 }

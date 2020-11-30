@@ -13,7 +13,6 @@ public class PlayerCollision : MonoBehaviour
     private GameObject instance, effect;
     void Start()
     {
-        notMove = 0;
         initSpeed = 10;
         initJump = 60f;
         notMoveTime = 3;
@@ -23,13 +22,15 @@ public class PlayerCollision : MonoBehaviour
     void OnCollisionEnter(Collision other){
         PlayerMove.jump = initJump;
         PlayerMove.speed = initSpeed;
-        if(other.gameObject.name == "hurdle"){
+        if(other.gameObject.tag == "hurdle"){
+            GetComponent<Rigidbody>().AddForce(Vector3.back * 200f);
             notMove = notMoveTime;
             hurdle.Play();
         }
         if(other.gameObject.tag == "stone")
             notMove = notMoveTime;
-        if(other.gameObject.name == "stick"){
+        if(other.gameObject.tag == "stick"){
+            GetComponent<Rigidbody>().AddForce(Vector3.back * 200f);
             notMove = notMoveTime;
             stick.Play();
         }

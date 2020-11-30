@@ -6,7 +6,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 
 [Hierarchy]
 - [x] Directional Light
-- [ ] ScriptObject : EmptyObject. InitScene.cs, changeWeather, Start.cs
+- [x] ScriptObject : EmptyObject. InitScene.cs, changeWeather, Start.cs
 - [x] player : rigidbody, rotation-freeze, PlayerMove.cs, PlayerCollision.cs
     - [x] Main Camera
     - [x] time : UI text
@@ -14,9 +14,9 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - [x] speed : UI text
     - [x] weather : UI text
     - [x] weatherEffect : UI text
-    - [ ] start : UI text
+    - [x] start : UI text
     - [x] result : UI text, "Game success" or "Gane Failed"
-- [ ] track 1 
+- [x] track 1 
     - [x] track : prefab
     - [x] hurdle(n) : rigidbody, prefab
 - [ ] track 2 : createStone.cs
@@ -27,7 +27,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - [ ] portal-C
 - [ ] track 4
     - [x] track : prefab
-    - [ ] stick(n) : prefab, moveStick.cs
+    - [x] stick(n) : prefab, moveStick.cs
     - [ ] end Point
         - [ ] GoalLine: rigidbody
 
@@ -110,17 +110,5 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     :: cloud, darkCloud
 - [x] deleteSnow.cs : 날씨가 Snow가 아닐 경우 관련 asset 자동 소멸
     :: snow_set, ice
-- [ ] Start.cs : 게임 시작 카운트다운
+- [x] Start.cs : 게임 시작 카운트다운
     :: ScriptObject
-    - player.GetComponent<Collision>().notMove = 5;
-    - start.SetActive(true)
-    - if(!(++count % 50) && player.GetComponent<Collision>().notMove)
-        if(player.GetComponent<Collision>().notMove > 1)
-            start.GetComponent<Text>.text = (player.GetComponent<Collision>().notMove-- - 2) + ""
-        else
-            start.GetComponent<Text>.text = "땅!"
-        start.Play()
-    - else if(!player.GetComponent<Collision>().notMove)
-        start.SetActive(false)
-    - public : AudioSource start, GameObject start, GameObject player
-    - private : int count
