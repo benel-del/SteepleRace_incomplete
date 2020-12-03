@@ -24,7 +24,7 @@ public class createStone : MonoBehaviour
         while(player.position.z < 200){
             x = Random.Range(-12, 12);
             z = Random.Range((int)player.position.z, (int)player.position.z + 40);
-            Instantiate(stone, new Vector3(x*2.0f, 30, z), Quaternion.identity);
+            Instantiate(stone, new Vector3(x*2.0f, 30, z), Quaternion.Euler(Random.Range(-5,5) * 10f, 0, 0));
             yield return new WaitForSeconds(0.2f);
         }
     }

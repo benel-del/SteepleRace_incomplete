@@ -5,18 +5,18 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     public static int notMove, initSpeed;
-    public AudioSource wind, hurdle, stick, snow_set, ice, portal;
+    public AudioSource wind, hurdle, stick, snow_set, ice, portal, stone;
     public GameObject portalA, portalB;
     public GameObject track1, track2, track3, track4;
     private int notMoveTime;
-    private float initJump;
+    public static float initJump;
     private GameObject instance, effect;
-    bool audio_snow, audio_wind;
+    bool audio_wind, audio_snow;
     bool onePort = true;
     void Start()
     {
         initSpeed = 10;
-        initJump = 60f;
+        initJump = 80f;
         notMoveTime = 3;
         effect = Resources.Load("particleEffect") as GameObject;
         PlayerMove.jump = initJump;
@@ -39,8 +39,10 @@ public class PlayerCollision : MonoBehaviour
             notMove = notMoveTime;
             hurdle.Play();
         }
-        if(other.gameObject.tag == "stone")
+        if(other.gameObject.tag == "stone"){
             notMove = notMoveTime;
+            stone.Play();
+        }
         if(other.gameObject.tag == "stick"){
             GetComponent<Rigidbody>().AddForce(Vector3.back * 150f);
             notMove = notMoveTime;
@@ -86,12 +88,14 @@ public class PlayerCollision : MonoBehaviour
         }
         if(other.gameObject.tag == "snow_set"){
             PlayerMove.speed = initSpeed - 4;
+            if(!PlayerMove.isJump && !audio_snow&& (PlayerMove.move1 || PlayerMove.move2)){
+                snow_set.Play();
+                audio_snow = true;
+            }
         }
         else{
-            if(audio_snow){
-                snow_set.Stop();
-                audio_snow = false;
-            }
+            snow_set.Stop();
+            audio_snow = false;
         }
         if(other.gameObject.tag == "ice"){
             PlayerMove.jump = 30f;
@@ -105,24 +109,22 @@ public class PlayerCollision : MonoBehaviour
         if(other.gameObject.name == "board" || other.gameObject.tag == "snow_set")
             transform.position = new Vector3(transform.position.x + Random.Range(-3, 3) * 0.01f, transform.position.y, transform.position.z);
         if(other.gameObject.tag == "snow_set"){
-            if(!audio_snow){
+            if(!(PlayerMove.move1 || PlayerMove.move2)){
+                snow_set.Pause();
+                audio_snow = false;
+            }
+            if(!audio_snow && (PlayerMove.move1 || PlayerMove.move2)){
                 snow_set.Play();
                 audio_snow = true;
             }
         }
     }
-    int snowTimer = 0;
     void FixedUpdate(){
         if(audio_snow){
-            if(snowTimer ++ > 50 * 6){
-                audio_snow = false;
-                snowTimer = 0;
-            }
             if(PlayerMove.isJump){
-                snow_set.Stop();
+                snow_set.Pause();
                 audio_snow = false;
             }
         }
-        
     }
 }

@@ -6,7 +6,7 @@ public class changeWeather : MonoBehaviour
 {
     public GameObject player;
     public Light dl;
-    public AudioSource sun, cloud, rain, snow, thunder;
+    public AudioSource rain, thunder;
     public GameObject spring, spring1, raining, raining1, winter, winter1;
     public GameObject sp;
     public static int rand;
@@ -33,10 +33,6 @@ public class changeWeather : MonoBehaviour
                 if(rand == 0){
                     dl.GetComponent<Light>().intensity = 1f;
                     instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
-                    cloud.Play();
-                }
-                else{
-                    cloud.Stop();
                 }
                 if(rand == 1){
                     dl.GetComponent<Light>().intensity = 0.8f;
@@ -57,22 +53,16 @@ public class changeWeather : MonoBehaviour
                 if(rand == 2){
                     dl.GetComponent<Light>().intensity = 0.8f;
                     instance1 = (GameObject) Instantiate(instance[rand] as GameObject, pos, Quaternion.identity);
-                    snow.Play();
                     winter.SetActive(true);
                     winter1.SetActive(true);
                 }
                 else{
-                    snow.Stop();
                     winter.SetActive(false);
                     winter1.SetActive(false);
                 }
                 if(rand == 3){
                     dl.GetComponent<Light>().intensity = 1.2f;
                     instance1 = (GameObject) Instantiate(instance[rand] as GameObject, new Vector3(0, 0, 0), Quaternion.identity);
-                    sun.Play();
-                }
-                else{
-                    sun.Stop();
                 }
 
                 if(rand != 1 && rand != 2)

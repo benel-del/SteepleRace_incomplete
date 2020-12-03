@@ -8,7 +8,12 @@ public class deleteStone : MonoBehaviour
         
     }
     void OnCollisionEnter(Collision other){
-        GameObject.Find("ScriptObject").GetComponent<InitScene>().StonePlay();  // TODO: sound 원거리
-        Destroy(gameObject, 2f);
+        
+        if(other.gameObject.name == "player"){
+            Destroy(gameObject);
+        }
+        else{
+            Destroy(gameObject, 2f);
+        }
     }
 }

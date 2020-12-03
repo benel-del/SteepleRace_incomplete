@@ -14,7 +14,7 @@ public class heat : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(GameObject.Find("track 3") && heat_haze.activeSelf)
+        if(GameObject.Find("track 3"))
            heat_haze.SetActive(false);
         else if(!GameObject.Find("track 3"))
             heat_haze.SetActive(true);

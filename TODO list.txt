@@ -70,7 +70,7 @@
 - [x] weather effect: player's speed change
 - [x] timer: countDown
 - [x] distance: player ~ end point
-- [ ] sound setting: 
+- [x] sound setting: 
 
 [Asset]
 - [x] player model
@@ -95,13 +95,6 @@
 - [x] player&stone collision sound
 - [x] player&stick collision sound
 - [x] player&portal collision sound
-- [ ] background sound
-- [ ] timer < 10 alert sound
-- [ ] start sound
-- [ ] success sound
-- [ ] failed sound
+- [x] background sound
 - [x] wind sound : for board
-- [ ] sun sound : player가 지친 소리
-- [ ] cloud sound :
 - [x] rain sound
-- [ ] snow sound

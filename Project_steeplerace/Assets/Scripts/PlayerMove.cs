@@ -6,15 +6,15 @@ public class PlayerMove : MonoBehaviour
 {
     public static int speed;
     public static float jump;
-    public AudioSource falling;
+    public AudioSource bgm;
     private float sun;
     public static bool isJump = false;
-    bool move1 = false, move2 = false;
+    public static bool move1 = false, move2 = false;
     Animator anim;
     void Start()
     {
         speed = 10;
-        jump = 700f;
+        jump = PlayerCollision.initJump;
         sun = 0;
         transform.position = new Vector3(0, 3, -255);
         anim = GetComponent<Animator>();
@@ -26,11 +26,11 @@ public class PlayerMove : MonoBehaviour
             isJump = true;
         else
             isJump = false;
-        if(InitScene.oneTime && !GameObject.FindWithTag("result") && PlayerCollision.notMove == 0) {
+        if(InitScene.oneTime && PlayerCollision.notMove == 0) {
             if(transform.position.y < -1)
-                falling.Play();
+                bgm.Pause();
             else{
-                falling.Stop();
+                bgm.UnPause();
                 if(transform.position.z > 259)
                     transform.position = new Vector3(transform.position.x, transform.position.y, 259);
                 if(Input.GetKey(KeyCode.Space))
@@ -72,7 +72,17 @@ public class PlayerMove : MonoBehaviour
             else
                 anim.SetInteger("Walk", 0);
         }
-        else
+        else{
             anim.SetInteger("Walk", 0);
+            sun = 0;
+            move1 = move2 = false;
+        }
+
+        if(!InitScene.oneTime)
+            bgm.Stop();
+    }
+
+    public void bgmplay(){
+        bgm.Play();
     }
 }

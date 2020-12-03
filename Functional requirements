@@ -21,21 +21,22 @@
 - [ ] sun : Player가 15초 이상 연속으로 달리면 탈진으로 3초간 움직이지 못한다.
 - [ ] cloud : 천천히 이동하는 구름을 생성한다.
 - [ ] rain : 구름을 많이 생성한다. 비가 내리고, 바닥에 닿으면 사라진다. 
-- [ ] rain : Player의 이동속도를 낮춘다.
+- [ ] rain : Player의 이동속도를 낮춘다. 시야가 감소한다.
 - [ ] snow : 구름을 많이 생성한다. 눈이 내리고, 바닥에 닿으면 사라진다. 
-- [ ] snow : 눈덩이와 빙판이 랜덤으로 생긴다.
+- [ ] snow : 눈덩이와 빙판이 랜덤으로 생긴다. 시야가 감소한다.
 
 [Portal + Start/End point]
 - [ ] Portal-A : track 1, track 2, track 3의 도착 부분에 위치한다.
 - [ ] Portal-B : track 2, track 3, track 4의 시작 부분에 위치한다.
-- [ ] Portal-C : track 3의 아래에 위치하여 player가 board에서 떨어지면 이 포탈을 통해 track 3의 처음 시작 위치(=portal-B)로 이동한다.
+- [ ] Portal-C: track 3와 track4의 아래에 위치하여 player가 board, track에서 떨어지면 이 포탈을 통해 track의 처음 시작 위치(=portal-B)로 이동한다.
 - [ ] Start point : 게임의 처음 시작 위치이자 track 1의 시작 부분
 - [ ] End point : 게임의 목적지이자 track 4의 도착 부분
 
 [Collider]
-- [ ] player&hurdle : 부딪히는 소리가 나며 허들은 쓰러지고 player는 n초간 움직이지 못한다.
+- [ ] player&hurdle : 부딪히는 소리가 나며 player는 n초간 움직이지 못한다.
+- [ ] player&hurdle : 각 hurdle은 2번 충돌하면 사라진다.
 - [ ] player&stone : 부딪히는 소리가 나며 돌멩이는 사라지고, player는 n초간 움직이지 못한다.
-- [ ] Track&stone : 부딪히는 소리가 나며 돌멩이가 사라진다.
+- [ ] Track&stone : 돌멩이는 바닥에서 구르고 2초 후에 사라진다.
 - [ ] Player&board : player의 이동 속도와 점프 높이를 낮춘다. 강한 바람소리가 나며 player의 x 좌표가 미세하게 변한다.
 - [ ] player&stick : player가 튕겨져 나가며 소리가 나고 n초간 움직이지 못한다. Stick은 그대로 움직인다.
 - [ ] player&ice : player의 이동 속도와 점프 높이를 낮춘다
@@ -44,6 +45,10 @@
 
 [Etc]
 - [ ] Timer : 게임 종료까지 남은 시간을 화면 상단에 표시한다.
+- [ ] Timer : 남은 시간이 20초 이하이면 시간을 강조한다.
 - [ ] Distance : player 위치에서 결승선까지 남은 거리를 화면 상단에 표시한다.
+- [ ] Weather : 현재 적용되고 있는 날씨와 그 효과를 화면 상단에 표시한다.
+- [ ] Speed : 현재 player의 속도를 화면 상단에 표시한다.
+- [ ] notMove: player가 장애물에 의해 움직이지 못할 때 그 사실을 표시한다.
 - [ ] start : 게임을 시작할 때 5초 카운트 다운을 출력한다. 그 동안 player는 움직일 수 없다.
 - [ ] end : 제한 시간 내에 end point에 도착하면 성공 메시지를, 그렇지 못하면 실패 메시지를 출력하고, 그 이후에 player는 움직일 수 없다..

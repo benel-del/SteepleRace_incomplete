@@ -4,41 +4,58 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 * ver.track Ative
 *****
 
-+ sound 추가
 + 입체 sound
 + OnCollisionExit() 작동 x
 
-not move text 수정
-
 [Hierarchy]
 - [x] Directional Light
-- [x] ScriptObject : EmptyObject. InitScene.cs, changeWeather, Start.cs
-- [x] player : rigidbody, rotation-freeze, PlayerMove.cs, PlayerCollision.cs
-    - [x] Main Camera
+- [x] ScriptObject : EmptyObject. InitScene.cs, changeWeather.cs, Start.cs
+- [x] Canvas
+    - [x] track : UI text
     - [x] time : UI text
     - [x] distance : UI text
     - [x] speed : UI text
     - [x] weather : UI text
-    - [x] weatherEffect : UI text
     - [x] start : UI text
     - [x] result : UI text, "Game success" or "Gane Failed"
-- [x] track 1 
-    - [x] track : prefab
-    - [x] hurdle(n) : rigidbody, prefab, hurdle.cs
-- [x] track 2 : createStone.cs
-    - [x] track : prefab
-    - [x] stone : Resources
-- [x] track 3(2)
-    - [x] board :
-    - [x] portal-C
-- [x] track 4
-    - [x] track : prefab
-    - [x] stick(n) : prefab, moveStick.cs
-    - [x] end Point
-        - [x] GoalLine
-
-- [x] portal-A
-- [x] portal-B
+    - [x] notMove : UI text
+- [x] Audio
+    - [x] portal
+    - [x] snow_set : Gsun
+    - [x] ice : Gsun
+    - [x] thunder : Grain
+    - [x] rain : Grain
+    - [x] wind : track3
+    - [x] hurdle
+    - [x] stick
+    - [x] BGM
+- [x] player : rigidbody, rotation-freeze, PlayerMove.cs, PlayerCollision.cs
+    - [x] Main Camera
+    - [x] Spot Light
+- [x] Field
+    - [x] portal-A
+    - [x] portal-B
+    - [x] track
+        - [x] track 1 
+            - [x] track : prefab
+            - [x] hurdles : rigidbody, prefab, hurdle.cs
+        - [x] track 2 : createStone.cs
+            - [x] track : prefab
+            - [x] stone : Resources
+        - [x] track 3(2)
+            - [x] board :
+            - [x] portal-C
+        - [x] track 4
+            - [x] track : prefab
+            - [x] sticks : prefab, moveStick.cs
+            - [x] portal-C
+            - [x] end Point
+                - [x] GoalLine
+    - [x] side
+        - [x] grass
+            - [x] spring
+            - [x] raining
+            - [x] winter
 - [x] Gsun : Resources
     - [x] heat_haze : particle
 - [x] Gcloud : Resources
@@ -51,9 +68,6 @@ not move text 수정
     - [x] snow : particle
     - [x] snow_set : Resources
     - [x] ice : Resources
-
-* start point  = portal-B
-* end point = portal-A
 
 [Resources]
 - [x] stone : Prefab, rigidbody, deleteStone.cs
@@ -73,7 +87,7 @@ not move text 수정
 [Scripts]
 - [x] PlayerMove.cs : Player 이동
     :: Player
-- [x] InitScene.cs : timer/distance 출력, game result 로드
+- [x] InitScene.cs : 여러 UI text 출력, 게임 종료
     :: ScriptObject
 - [x] PlayerCollision.cs : 충돌 후 player 상태 변화(speed, notMoveTime) + sound
     :: player
@@ -101,7 +115,6 @@ not move text 수정
     :: snow_set, ice
 - [x] Start.cs : 게임 시작 카운트다운
     :: ScriptObject
-
-- [x] hurdle.cs : hurdle의 x 회전각이 -10~10 아니면 destroy
+- [x] hurdle.cs : player와 2번 충돌하면 destroy
     :: hurdle
 - [x] heat.cs : track3에서 heat_haze 생성x

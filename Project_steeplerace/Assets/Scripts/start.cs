@@ -7,7 +7,6 @@ public class start : MonoBehaviour
 {
     private float timer = 0;
     public Text st;
-    public AudioSource audio1, audio2;
     void Start(){
         GetComponent<InitScene>().enabled = false;
         GetComponent<changeWeather>().enabled = false;
@@ -16,15 +15,14 @@ public class start : MonoBehaviour
 
     void FixedUpdate(){
         if(++timer % 50 == 0 && timer < 50*7){
-            audio1.Play();
             st.text = (--PlayerCollision.notMove - 1) + "";
         }
         if(timer % 50 == 0 && timer == 50*7){
-            audio2.Play();
             st.text = "시작~!";
             --PlayerCollision.notMove;
             GetComponent<InitScene>().enabled = true;
             GetComponent<changeWeather>().enabled = true;
+            GameObject.Find("player").GetComponent<PlayerMove>().bgmplay();
         }
         if(timer % 50 == 0 && timer == 50*8){
             st.enabled = false;
