@@ -8,17 +8,25 @@ public class PlayerMove : MonoBehaviour
     public static float jump;
     public AudioSource falling;
     private float sun;
+    public static bool isJump = false;
+    bool move1 = false, move2 = false;
+    Animator anim;
     void Start()
     {
         speed = 10;
-        jump = 60f;
+        jump = 700f;
         sun = 0;
         transform.position = new Vector3(0, 3, -255);
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
-        if(!GameObject.FindWithTag("result") && PlayerCollision.notMove == 0) {
+        if(transform.position.y > 0.2)
+            isJump = true;
+        else
+            isJump = false;
+        if(InitScene.oneTime && !GameObject.FindWithTag("result") && PlayerCollision.notMove == 0) {
             if(transform.position.y < -1)
                 falling.Play();
             else{
@@ -26,11 +34,13 @@ public class PlayerMove : MonoBehaviour
                 if(transform.position.z > 259)
                     transform.position = new Vector3(transform.position.x, transform.position.y, 259);
                 if(Input.GetKey(KeyCode.Space))
-                    if(transform.position.y < 0.5){
+                    if(!isJump){
                         GetComponent<Rigidbody>().AddForce(Vector3.up * jump);
+                        anim.SetTrigger("jump");
                     }
                 if(Input.GetKey(KeyCode.UpArrow)){
                     transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                    move1 = true;
                     if(GameObject.FindWithTag("Gsun"))
                         sun += Time.deltaTime;
                     else 
@@ -38,20 +48,31 @@ public class PlayerMove : MonoBehaviour
                 }
                 else{
                     sun = 0;
+                    move1 = false;
                 }
                 if(Input.GetKey(KeyCode.LeftArrow)){
                     if(transform.position.x >= -24)
                         transform.Translate(Vector3.left * speed * Time.deltaTime);
+                    move2 = true;
                 }
-                if(Input.GetKey(KeyCode.RightArrow)){
+                else if(Input.GetKey(KeyCode.RightArrow)){
                     if(transform.position.x <= 24)
                         transform.Translate(Vector3.right * speed * Time.deltaTime);
+                    move2 = true;
                 }
+                else
+                    move2 = false;
             }
             if(sun > 15){
                 PlayerCollision.notMove = 3;
                 sun = 0;
             }
+            if(move1 || move2)
+                anim.SetInteger("Walk", 1);
+            else
+                anim.SetInteger("Walk", 0);
         }
+        else
+            anim.SetInteger("Walk", 0);
     }
 }

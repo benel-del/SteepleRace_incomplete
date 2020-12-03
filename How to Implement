@@ -4,12 +4,11 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 * ver.track Ative
 *****
 
-+ hurdle 쓰러지기
-+ hurdle, stick 때 player bouncy
 + sound 추가
-+ 비 더 티나게
++ 입체 sound
 + OnCollisionExit() 작동 x
 
+not move text 수정
 
 [Hierarchy]
 - [x] Directional Light
@@ -25,18 +24,18 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     - [x] result : UI text, "Game success" or "Gane Failed"
 - [x] track 1 
     - [x] track : prefab
-    - [x] hurdle(n) : rigidbody, prefab
+    - [x] hurdle(n) : rigidbody, prefab, hurdle.cs
 - [x] track 2 : createStone.cs
     - [x] track : prefab
     - [x] stone : Resources
-- [ ] track 3(2)
+- [x] track 3(2)
     - [x] board :
-    - [ ] portal-C
-- [ ] track 4
+    - [x] portal-C
+- [x] track 4
     - [x] track : prefab
     - [x] stick(n) : prefab, moveStick.cs
-    - [ ] end Point
-        - [ ] GoalLine: rigidbody
+    - [x] end Point
+        - [x] GoalLine
 
 - [x] portal-A
 - [x] portal-B
@@ -59,7 +58,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
 [Resources]
 - [x] stone : Prefab, rigidbody, deleteStone.cs
 - [x] portalEffect : Particle System
-- [x] weather/Gsun : GameObjacet
+- [x] weather/Gsun : GameObjacet, heat_cs
 - [x] weather/Gcloud : GameObject, createCloud.cs
 - [x] weather/Grain : GameObject, createRain.cs
 - [x] weather/Gsnow : GameObject, createSnow.cs
@@ -102,3 +101,7 @@ track을 미리 생성하지 말고, player가 portal-A와 충돌하면 그때 �
     :: snow_set, ice
 - [x] Start.cs : 게임 시작 카운트다운
     :: ScriptObject
+
+- [x] hurdle.cs : hurdle의 x 회전각이 -10~10 아니면 destroy
+    :: hurdle
+- [x] heat.cs : track3에서 heat_haze 생성x

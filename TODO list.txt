@@ -6,13 +6,13 @@
 [GameObject]
 - [x] ScriptObject
 - [x] player(1) : rigidbody
-- [ ] hurdle(n) : rigidbody, prefab
-- [ ] stone(n) : rigidbody, prefab, Dynamic random creation
+- [x] hurdle(n) : rigidbody, prefab
+- [x] stone(n) : rigidbody, prefab, Dynamic random creation
 - [x] board(1)
-- [ ] stick(n) : prefab
+- [x] stick(n) : prefab
 - [x] portal-A(1) : prefab
 - [x] portal-B(1) : prefab
-- [ ] portal-C(1) : gound-3 bottom
+- [x] portal-C(1) : gound-3 bottom
 - [x] rain : particle
 - [x] snow : particle
 - [x] snow_set(n) : prefab, Dynamic random creation
@@ -26,14 +26,14 @@
 - [x] Gsnow : Dynamic creation
 - [x] track(3) : prefab
 - [x] portalEffect : prefab, Dynamic creation
-- [ ] goalLine
+- [x] goalLine
 
 [Field]
-- [ ] partal-A = end point
-- [ ] track 1 : hurdle
-- [ ] track 2 : stone
+- [x] partal-A = end point
+- [x] track 1 : hurdle
+- [x] track 2 : stone
 - [x] track 3 : narrow board
-- [ ] track 4 : stick
+- [x] track 4 : stick
 - [x] portal-B = start point
 
 [Tag]
@@ -51,9 +51,9 @@
 
 
 [Prefab]
-- [ ] hurdle
+- [x] hurdle
 - [x] stone
-- [ ] stick
+- [x] stick
 - [x] snow_set
 - [x] cloud
 - [x] darkCloud
@@ -62,8 +62,8 @@
 
 [Code]
 - [x] player movement: KeyDown >> player position(left/right/up)
-- [ ] obstacle creation: 
-- [ ] obstacle movement: 
+- [x] obstacle creation: 
+- [x] obstacle movement: 
 - [x] field: player's drag change
 - [x] field change: player&portal-A collision >> player position=portal-B position
 - [x] weather creation: 
@@ -74,10 +74,10 @@
 
 [Asset]
 - [x] player model
-- [ ] hurdle model : 직접 구현
+- [x] hurdle model : 직접 구현
 - [x] stone model
 - [x] board model
-- [ ] stick model
+- [x] stick model
 - [x] Gsun : GameObject
 - [x] Gcloud : GameObject
 - [x] Grain : GameObject
@@ -91,10 +91,10 @@
 - [x] ice model : 빙판
 - [x] portalEffect
 - [x] track image : 직접 구현
-- [ ] player&hurdle collision sound
-- [ ] player&stone collision sound
-- [ ] player&stick collision sound
-- [ ] player&portal collision sound
+- [x] player&hurdle collision sound
+- [x] player&stone collision sound
+- [x] player&stick collision sound
+- [x] player&portal collision sound
 - [ ] background sound
 - [ ] timer < 10 alert sound
 - [ ] start sound

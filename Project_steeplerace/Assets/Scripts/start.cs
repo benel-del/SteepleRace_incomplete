@@ -21,7 +21,7 @@ public class start : MonoBehaviour
         }
         if(timer % 50 == 0 && timer == 50*7){
             audio2.Play();
-            st.text = "땅~!";
+            st.text = "시작~!";
             --PlayerCollision.notMove;
             GetComponent<InitScene>().enabled = true;
             GetComponent<changeWeather>().enabled = true;

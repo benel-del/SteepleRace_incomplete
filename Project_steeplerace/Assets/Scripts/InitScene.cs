@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InitScene : MonoBehaviour
 {
-    public Text distanceText, speedText, timeText, resultText, weatherText, trackText;
+    public Text distanceText, speedText, timeText, resultText, weatherText, trackText, moveText;
     public AudioSource stone;
     public GameObject player;
     public static bool oneTime = true;
@@ -28,6 +28,7 @@ public class InitScene : MonoBehaviour
             }
             else if(limit_time == ++timerCount/50){
                 resultText.text = "Game Over";
+                timeText.text = "Time : 0s";
                 oneTime = !oneTime;
             }
             else{
@@ -36,10 +37,10 @@ public class InitScene : MonoBehaviour
             }
         }
         if(timerCount/50 >= limit_time - 20){
-            if(timerCount / 5 % 2 != 0)
-                timeText.color =  Color.red;
-            else
+            if(timerCount / 5 % 4 != 0)
                 timeText.color =  Color.white;
+            else
+                timeText.color =  Color.red;
         }
         getDistance();
         ShowText();
@@ -48,10 +49,10 @@ public class InitScene : MonoBehaviour
     void ShowText(){
         if(oneTime){ 
             trackText.text = "Track : " + track.ToString() + " / 4";
-            distanceText.text = "distance : " + ((int)distance).ToString();
-            speedText.text = "speed : " + PlayerMove.speed.ToString();
+            distanceText.text = "Distance : " + ((int)distance).ToString() + "m";
+            speedText.text = "Speed : " + PlayerMove.speed.ToString() + "m/s";
             if(timerCount % 50 == 0){
-                timeText.text = "time : " + (limit_time - timerCount/50).ToString();
+                timeText.text = "Time : " + (limit_time - timerCount/50).ToString() + "s";
             }
             switch(changeWeather.rand){ // cloud, rain, snow, sun
                 case 0:
@@ -61,12 +62,16 @@ public class InitScene : MonoBehaviour
                     weatherText.text = "RAIN :: 그림자, 이동속도 감소";
                     break;
                 case 2:
-                    weatherText.text = "SNOW :: 장애물 생성";
+                    weatherText.text = "SNOW :: 그림자, 장애물 생성";
                     break;
                 case 3:
                     weatherText.text = "SUN :: 탈진";
                     break;
             }
+            if(PlayerCollision.notMove != 0)
+                moveText.text = "Not move! " + PlayerCollision.notMove + "s";
+            else
+                moveText.text = "";
         }
     }
 

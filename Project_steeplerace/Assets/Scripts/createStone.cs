@@ -7,18 +7,24 @@ public class createStone : MonoBehaviour
     GameObject stone;
     Transform player;
     int x, z;
+    bool one = true;
     void Start()
     {
-        player = GameObject.Find("player").transform;
+        player = GameObject.Find("player").GetComponent<Transform>();
         stone = (GameObject) Resources.Load("stone");
+        
+    }
+    void FixedUpdate(){
+        if(one && player.position.z > -240)
         StartCoroutine(create()); // InvokeRepeating은 active여부와 관계없이 계속 반복
     }
     IEnumerator create()
     {
-        while(player.position.z > -240 && player.position.z < 210){
+        one = false;
+        while(player.position.z < 200){
             x = Random.Range(-12, 12);
-            z = Random.Range((int)player.position.z, (int)player.position.z + 60);
-            Instantiate(stone, new Vector3(x*2.0f, 30, z), Quaternion.Euler(0, 0, Random.Range(0, 90)));
+            z = Random.Range((int)player.position.z, (int)player.position.z + 40);
+            Instantiate(stone, new Vector3(x*2.0f, 30, z), Quaternion.identity);
             yield return new WaitForSeconds(0.2f);
         }
     }
