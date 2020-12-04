@@ -15,20 +15,29 @@ public class changeWeather : MonoBehaviour
     private Vector3 pos;
     int pre;
 
+    public static bool start;
+    void FixedUpdate(){
+        if(!InitScene.oneTime){
+            rain.Stop();
+            thunder.Stop();
+        }
+        if(start){
+            start = false;
+            rand = Random.Range(0,4);
+            pre = -1;
+            StartCoroutine(change());
+        }
+        if(!InitScene.oneTime)
+            StopAllCoroutines();
+    }
+
     void Start(){
         instance = Resources.LoadAll("weather");    // cloud, rain, snow, sun
         pos = new Vector3(0, 150, 0);
-        rand = Random.Range(0,4);
-        pre = -1;
-        InvokeRepeating("change", 5.05f, 30.05f);
-        InvokeRepeating("delete", 35.05f, 30.05f);
-        spring.SetActive(true);
-        spring1.SetActive(true);
-        sp.SetActive(false);
     }
 
-    void change(){
-        if(InitScene.oneTime){
+    IEnumerator change(){
+        while(InitScene.oneTime){
             if(pre != rand){
                 if(rand == 0){
                     dl.GetComponent<Light>().intensity = 1f;
@@ -78,6 +87,8 @@ public class changeWeather : MonoBehaviour
                     spring1.SetActive(true);
                 }
             }
+            yield return new WaitForSeconds(30.05f);
+            delete();
         }
     }
 

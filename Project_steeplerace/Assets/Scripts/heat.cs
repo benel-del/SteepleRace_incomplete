@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class heat : MonoBehaviour
 {
-    public GameObject heat_haze;
+    public ParticleSystem heat_haze;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +15,8 @@ public class heat : MonoBehaviour
     void FixedUpdate()
     {
         if(GameObject.Find("track 3"))
-           heat_haze.SetActive(false);
+            heat_haze.Stop();
         else if(!GameObject.Find("track 3"))
-            heat_haze.SetActive(true);
+            heat_haze.Play();
     }
 }

@@ -7,7 +7,7 @@ public class createStone : MonoBehaviour
     GameObject stone;
     Transform player;
     int x, z;
-    bool one = true;
+    public static bool one;
     void Start()
     {
         player = GameObject.Find("player").GetComponent<Transform>();
@@ -16,7 +16,7 @@ public class createStone : MonoBehaviour
     }
     void FixedUpdate(){
         if(one && player.position.z > -240)
-        StartCoroutine(create()); // InvokeRepeating은 active여부와 관계없이 계속 반복
+            StartCoroutine(create()); // InvokeRepeating은 active여부와 관계없이 계속 반복
     }
     IEnumerator create()
     {

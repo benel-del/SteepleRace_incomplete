@@ -5,30 +5,31 @@ using UnityEngine.UI;
 
 public class InitScene : MonoBehaviour
 {
+    public GameObject end;
     public Text distanceText, speedText, timeText, resultText, weatherText, trackText, moveText;
     public GameObject player;
-    public static bool oneTime = true;
-    private int limit_time, trackLength, track;
-    private int timerCount = 0;
-    private float distance, z;
+    public static bool oneTime ;
+    public static int limit_time, trackLength = 500, track;
+    public static int timerCount;
+    public static float distance;
+    private float z;
     void Start()
     {
-        limit_time = 500;
-        trackLength = 500;
-        distance = trackLength * 4;
     }
 
     void FixedUpdate()
     {
         if(oneTime){
             if(distance <= 0){
-                resultText.text = "Game Clear";
+                resultText.text = "GAME CLEAR";
                 oneTime = !oneTime;
+                end.SetActive(true);
             }
             else if(limit_time == ++timerCount/50){
-                resultText.text = "Game Over";
+                resultText.text = "GAME OVER";
                 timeText.text = "Time : 0s";
                 oneTime = !oneTime;
+                end.SetActive(true);
             }
             else{
                 if(PlayerCollision.notMove != 0 && timerCount % 50 == 0)

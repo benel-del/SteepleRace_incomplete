@@ -8,15 +8,12 @@ public class PlayerMove : MonoBehaviour
     public static float jump;
     public AudioSource bgm;
     private float sun;
-    public static bool isJump = false;
-    public static bool move1 = false, move2 = false;
+    public static bool isJump;
+    public static bool move1, move2;
     Animator anim;
     void Start()
     {
-        speed = 10;
-        jump = PlayerCollision.initJump;
         sun = 0;
-        transform.position = new Vector3(0, 3, -255);
         anim = GetComponent<Animator>();
     }
 
@@ -79,7 +76,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         if(!InitScene.oneTime)
-            bgm.Stop();
+            bgm.loop = false;
     }
 
     public void bgmplay(){

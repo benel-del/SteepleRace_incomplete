@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     public static int notMove, initSpeed;
-    public AudioSource wind, hurdle, stick, snow_set, ice, portal, stone;
+    public AudioSource wind, hurdle, stick, snow_set, ice, portal;
     public GameObject portalA, portalB;
     public GameObject track1, track2, track3, track4;
     private int notMoveTime;
@@ -13,14 +13,10 @@ public class PlayerCollision : MonoBehaviour
     private GameObject instance, effect;
     bool audio_wind, audio_snow;
     bool onePort = true;
-    void Start()
+    void Awake()
     {
-        initSpeed = 10;
-        initJump = 80f;
         notMoveTime = 3;
         effect = Resources.Load("particleEffect") as GameObject;
-        PlayerMove.jump = initJump;
-        PlayerMove.speed = initSpeed;
         audio_snow = audio_wind = false;
     }
     void onCollisionExit(Collision other){  // 작동 안함
@@ -41,7 +37,6 @@ public class PlayerCollision : MonoBehaviour
         }
         if(other.gameObject.tag == "stone"){
             notMove = notMoveTime;
-            stone.Play();
         }
         if(other.gameObject.tag == "stick"){
             GetComponent<Rigidbody>().AddForce(Vector3.back * 150f);
